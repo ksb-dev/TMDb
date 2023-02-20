@@ -41,7 +41,6 @@ const SearchModal = () => {
         e.target.nodeName !== "path" &&
         e.target.nodeName !== "svg"
       ) {
-        console.log("modal hide");
         searchModalRef.current.style.zIndex = "-1";
         searchModalRef.current.style.opacity = "0";
       }

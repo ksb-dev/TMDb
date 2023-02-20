@@ -307,12 +307,15 @@ body {
 
 @import '../components/SearchModal/searchModal';
 
+@import '../components/MovieInfo/movieInfo';
+
 // pages
 @import '../pages/Home/home';
 @import '../pages/Search/search';
 @import '../pages/Login/login';
 @import '../pages/Register/register';
 @import '../Pages/Watchlist/watchlist';
+@import '../pages/MovieDetail/movieDetail';
 
 // other
 @import '../other/Loading/loading';
