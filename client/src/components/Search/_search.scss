@@ -11,6 +11,7 @@
   &__search-bar {
     display: flex;
     align-items: center;
+    background: #fff;
 
     form {
       position: relative;
@@ -44,6 +45,7 @@
         position: absolute;
         top: 0.45rem;
         right: 0.3rem;
+        //display: none;
       }
     }
 
@@ -87,6 +89,10 @@
         width: 100%;
         input {
           width: 90%;
+        }
+
+        span {
+          //display: none;
         }
       }
     }

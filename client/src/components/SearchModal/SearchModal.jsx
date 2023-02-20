@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // context
 import { useMovieContext } from "../../context/context";
@@ -16,21 +16,31 @@ const SearchModal = () => {
     searchIconRef,
     searchResultsRef,
     searchInputRef,
+    clearMovieInputRef,
+    clearTvInputRef,
+    setSearchQuery,
   } = useMovieContext();
   const { showSort, hideSort } = useShowHide();
 
+  const [windowWidth, setWindowWidth] = useState(787);
+
+  window.onresize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
   useEffect(() => {
     const toggleSearchModal = (e) => {
+      console.log(e.target.nodeName);
       if (searchIconRef.current.contains(e.target)) {
         searchModalRef.current.style.zIndex = "5";
         searchModalRef.current.style.opacity = "1";
-      } else if (
-        searchInputRef.current.contains(e.target) ||
-        (searchResultsRef.current &&
-          searchResultsRef.current.contains(e.target))
+      }
+
+      if (
+        !searchIconRef.current.contains(e.target) &&
+        e.target.nodeName !== "INPUT" &&
+        e.target.nodeName !== "svg"
       ) {
-        return;
-      } else {
         searchModalRef.current.style.zIndex = "-1";
         searchModalRef.current.style.opacity = "0";
       }
@@ -41,7 +51,7 @@ const SearchModal = () => {
     return () => {
       document.body.removeEventListener("click", toggleSearchModal);
     };
-  }, []);
+  }, [windowWidth]);
 
   return (
     <div

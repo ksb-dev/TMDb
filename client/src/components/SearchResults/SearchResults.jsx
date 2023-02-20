@@ -17,16 +17,12 @@ const SearchResults = ({ results }) => {
 
   // Close search results
   useEffect(() => {
-    if (windowWidth <= "786") {
-      setSearchQuery("");
-    }
+    // if (windowWidth <= "786") {
+    //   setSearchQuery("");
+    // }
 
     const closeSearchResults = (e) => {
-      if (
-        results &&
-        !searchResultsRef.current.contains(e.target) &&
-        !searchInputRef.current.contains(e.target)
-      ) {
+      if (e.target.nodeName !== "INPUT") {
         setSearchQuery("");
       }
     };
@@ -36,7 +32,7 @@ const SearchResults = ({ results }) => {
     return () => {
       document.body.removeEventListener("click", closeSearchResults);
     };
-  }, []);
+  }, [windowWidth]);
 
   return (
     <div

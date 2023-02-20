@@ -54,6 +54,8 @@ const MovieProvider = ({ children }) => {
 
   const searchIconRef = useRef(null);
   const searchModalRef = useRef(null);
+  const clearMovieInputRef = useRef(null);
+  const clearTvInputRef = useRef(null);
 
   return (
     <MovieContext.Provider
@@ -98,6 +100,8 @@ const MovieProvider = ({ children }) => {
 
         searchIconRef,
         searchModalRef,
+        clearMovieInputRef,
+        clearTvInputRef,
       }}
     >
       {children}

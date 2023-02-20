@@ -31,6 +31,8 @@ const Search = () => {
     searchInputRef,
     movieState,
     setMovieState,
+    clearMovieInputRef,
+    clearTvInputRef,
   } = useMovieContext();
 
   const dispatch = useDispatch();
@@ -61,9 +63,9 @@ const Search = () => {
 
       {/* Search bar */}
       <div className="search__component__search-bar">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e)} ref={searchInputRef}>
           <input
-            ref={searchInputRef}
+            //ref={searchInputRef}
             type="text"
             placeholder={optionState === "movie" ? "Search Movie" : "Search Tv"}
             onChange={(e) => {
@@ -81,6 +83,7 @@ const Search = () => {
           />
           {sessionStorage.getItem("movieState") === "movie" && searchQuery && (
             <span
+              //ref={clearMovieInputRef}
               onClick={() => {
                 setSearchQuery("");
                 //sessionStorage.removeItem('searchQuery')
@@ -93,6 +96,7 @@ const Search = () => {
 
           {sessionStorage.getItem("movieState") === "tv" && searchQuery && (
             <span
+              //ref={clearTvInputRef}
               onClick={() => {
                 setSearchQuery("");
                 //sessionStorage.removeItem('searchQuery')
