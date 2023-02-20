@@ -4,7 +4,7 @@
   position: relative;
   user-select: none;
   border-radius: var(--border-radius-1);
-
+  
   &--image {
     position: relative;
     display: inline-block;
@@ -54,7 +54,7 @@
     flex-direction: column;
     justify-content: space-between;
 
-    p {
+    &--title {
       font-weight: 500;
       margin: 0 0 0.5rem 0;
     }
@@ -72,9 +72,17 @@
       }
 
       &--rating {
+        position: relative;
+        width: 35px;
+        height: 35px;
         margin: 0;
-        padding: 0.5rem;
-        margin-bottom: 0 !important;
+
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
       }
     }
   }
@@ -92,15 +100,22 @@
     }
 
     &__info {
-      //min-height: 75px;
-
-      p {
+      &--title {
         font-size: 0.9rem;
       }
 
       &__date-rating {
         &--date {
           font-size: 0.75rem;
+          padding: 0.25rem 0.5rem;
+        }
+
+        &--rating {
+          position: relative;
+          width: 25px;
+          height: 25px;
+          
+          padding: 0.25rem;
         }
       }
     }

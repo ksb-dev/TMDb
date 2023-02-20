@@ -291,7 +291,6 @@ body {
 @import '../components/Header/header';
 @import '../components/Header/SmallHeader/smallHeader';
 @import '../components/Header/Logout/logout';
-@import '../components/Search/search';
 
 @import '../components/MovieList/movieList';
 @import '../components/MovieList/MovieCard/movieCard';
@@ -303,7 +302,10 @@ body {
 @import '../components/TvList/Pagination/pagination';
 @import '../components/Menu/menu';
 
+@import '../components/Search/search';
 @import '../components/SearchResults/searchResults';
+
+@import '../components/SearchModal/searchModal';
 
 // pages
 @import '../pages/Home/home';
