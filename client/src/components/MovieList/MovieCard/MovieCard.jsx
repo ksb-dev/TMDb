@@ -142,7 +142,9 @@ const MovieCard = ({ movie }) => {
           (mode === true ? "lightBg2 darkColor1" : "darkBg1 lightColor1")
         }
       >
-        <p className="card__info--title">{title && title}</p>
+        <p className="card__info--title">
+          {title && title.length <= 35 ? title : title.substring(0, 32) + "..."}
+        </p>
 
         <div
           className={

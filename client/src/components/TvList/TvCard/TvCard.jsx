@@ -140,7 +140,9 @@ const TvCard = ({ tv }) => {
           (mode === true ? "lightBg2 darkColor1" : "darkBg1 lightColor1")
         }
       >
-        <p classname="card__info--title">{name && name}</p>
+        <p className="card__info--title">
+          {name && name.length <= 35 ? name : name.substring(0, 32) + "..."}
+        </p>
 
         <div
           className={
