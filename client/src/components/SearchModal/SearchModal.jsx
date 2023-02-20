@@ -30,7 +30,6 @@ const SearchModal = () => {
 
   useEffect(() => {
     const toggleSearchModal = (e) => {
-      console.log(e.target.nodeName);
       if (searchIconRef.current.contains(e.target)) {
         searchModalRef.current.style.zIndex = "5";
         searchModalRef.current.style.opacity = "1";
@@ -39,8 +38,10 @@ const SearchModal = () => {
       if (
         !searchIconRef.current.contains(e.target) &&
         e.target.nodeName !== "INPUT" &&
+        e.target.nodeName !== "path" &&
         e.target.nodeName !== "svg"
       ) {
+        console.log("modal hide");
         searchModalRef.current.style.zIndex = "-1";
         searchModalRef.current.style.opacity = "0";
       }

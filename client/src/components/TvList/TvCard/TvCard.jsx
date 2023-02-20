@@ -140,7 +140,7 @@ const TvCard = ({ tv }) => {
           (mode === true ? "lightBg2 darkColor1" : "darkBg1 lightColor1")
         }
       >
-        <span className="card__info--title">{name && name}</span>
+        <p classname="card__info--title">{name && name}</p>
 
         <div
           className={

@@ -11,7 +11,7 @@
   &__search-bar {
     display: flex;
     align-items: center;
-    background: #fff;
+    //background: #fff;
 
     form {
       position: relative;
@@ -77,12 +77,16 @@
 
 @media screen and (max-width: 786px){
   .search__component {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &__switch {
       display: none;
     }
 
     &__search-bar {
       width: 100%;
+      //width:max-content;
       border: 2px solid var(--primary);
 
       form {
