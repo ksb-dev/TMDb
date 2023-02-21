@@ -40,6 +40,7 @@ const MovieProvider = ({ children }) => {
   const [optionState, setOptionState] = useState(
     sessionStorage.getItem("movieState") || "movie"
   );
+  const [searchOptionState, setSearchOptionState] = useState("movie");
 
   // search query
   const [searchQuery, setSearchQuery] = useState(
@@ -89,6 +90,9 @@ const MovieProvider = ({ children }) => {
 
         optionState,
         setOptionState,
+
+        searchOptionState,
+        setSearchOptionState,
 
         searchQuery,
         setSearchQuery,

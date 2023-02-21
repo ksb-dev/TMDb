@@ -85,7 +85,7 @@ const MovieDetail = () => {
   }, []);
 
   return (
-    <div className={"movie-detail " + (mode === true ? "lightBg1" : "darkBg1")}>
+    <div className={"movie-detail " + (mode === true ? "lightBg1" : "darkBg2")}>
       <Header />
       <SmallHeader />
       <Menu />

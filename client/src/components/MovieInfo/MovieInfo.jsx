@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import moment from "moment";
 
+// react router dom
+import { useNavigate } from "react-router-dom";
+
 // APIs
 import { APIs } from "../../APIs/APIs";
 
@@ -18,6 +21,7 @@ import { genreArray } from "../../data/genreData";
 
 // redux
 import { useSelector } from "react-redux";
+import { iconsData } from "../../data/icons";
 
 // other
 import Loading from "../../other/Loading/Loading";
@@ -35,6 +39,8 @@ import { TbMessageLanguage } from "react-icons/tb";
 import { FiPlay } from "react-icons/fi";
 
 const MovieInfo = ({ id, data, loading, error }) => {
+  const navigate = useNavigate();
+
   //context
   const { mode } = useMovieContext();
 
@@ -47,7 +53,6 @@ const MovieInfo = ({ id, data, loading, error }) => {
   // states
   const [genres, setGenres] = useState(new Set());
   const [genre_ids, setGenre_ids] = useState(new Set());
-  const [bookmark, setBookmark] = useState(false);
 
   // Youtube player properties
   const [trailerUrl, setTrailerUrl] = useState("");
@@ -60,6 +65,7 @@ const MovieInfo = ({ id, data, loading, error }) => {
 
   // redux state
   const savedMovies = useSelector((state) => state.savedMovies.savedMovies);
+  const user = useSelector((state) => state.savedMovies.user);
 
   // Get trailer
   useEffect(() => {
@@ -82,19 +88,6 @@ const MovieInfo = ({ id, data, loading, error }) => {
       }
     }
   }, [data]);
-
-  // To find out watchlist
-  useEffect(() => {
-    if (savedMovies && savedMovies.length > 0) {
-      for (let i = 0; i < (savedMovies && savedMovies.length); i++) {
-        if (savedMovies[i].id === Number(id)) {
-          setBookmark(true);
-        }
-      }
-    }
-
-    if (savedMovies && savedMovies.length === 0) setBookmark(false);
-  }, [savedMovies, id]);
 
   if (loading) {
     return (
@@ -119,25 +112,6 @@ const MovieInfo = ({ id, data, loading, error }) => {
         (mode === true ? "lightBg1 darkColor1" : "darkBg2 lightColor1")
       }
     >
-      <div
-        className="info__backdrop"
-        style={{
-          backgroundImage: `url(${
-            data && data.backdrop_path === null
-              ? APIs.no_image_url
-              : APIs.img_path + data.backdrop_path
-          })`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      ></div>
-
-      <div
-        className={
-          "info__cover " + (mode === true ? "lightAlpha1" : "darkAlpha1")
-        }
-      ></div>
-
       <div
         className={"info__detail " + (mode === true ? "lightBg1" : "darkBg2")}
       >
@@ -185,18 +159,101 @@ const MovieInfo = ({ id, data, loading, error }) => {
             <span>{Number(String(data.vote_average).substring(0, 3))}</span>
           </div>
         </div>
+      </div>
 
-        <div className="info__detail__two">
-          <div className="info__detail__two__image-trailer">
-            <img
-              src={
-                data.poster_path === null
-                  ? APIs.no_image_url
-                  : APIs.img_path + data.poster_path
+      <div className="info__image__video">
+        <img
+          className="info__image__video--image"
+          src={
+            data.poster_path === null ? url : APIs.img_path + data.poster_path
+          }
+          alt={data.title}
+        />
+
+        {user && savedMovies && savedMovies.length === 0 && (
+          <p
+            className="info__image__video__add-btn"
+            onClick={() =>
+              addMovie(
+                id,
+                data.title,
+                data.poster_path,
+                data.backdrop_path,
+                data.release_date,
+                data.vote_average,
+                genre_ids,
+                data.overview
+              )
+            }
+          >
+            <span className="info__image__video__add-btn-icon">
+              {iconsData.star}
+            </span>
+          </p>
+        )}
+
+        {/* ADD-BUTTON */}
+        {user &&
+          savedMovies &&
+          savedMovies.length > 0 &&
+          savedMovies.every((item, index) => item.id !== id) && (
+            <p
+              key={id}
+              className="info__image__video__add-btn"
+              onClick={() =>
+                addMovie(
+                  id,
+                  title,
+                  poster_path,
+                  backdrop_path,
+                  release_date,
+                  vote_average,
+                  genre_ids,
+                  overview
+                )
               }
-              alt=""
-            />
-          </div>
+            >
+              <span className="info__image__video__add-btn-icon">
+                {iconsData.star}
+              </span>
+            </p>
+          )}
+        {/* DELETE-BUTTON */}
+        {user &&
+          savedMovies &&
+          savedMovies.length > 0 &&
+          savedMovies.map((item, index) => {
+            if (item.id === id) {
+              return (
+                <p
+                  key={index}
+                  className="info__image__video__delete-btn"
+                  onClick={() => deleteMovie(id)}
+                  style={{ background: "gold" }}
+                >
+                  <span
+                    className="info__image__video__delete-btn--icon"
+                    style={{ color: "#000" }}
+                  >
+                    {iconsData.star}
+                  </span>
+                </p>
+              );
+            }
+          })}
+        {/* ADD-BUTTON (without user) */}
+        {!user && (
+          <p
+            className="info__image__video__btn "
+            onClick={() => navigate("/login")}
+          >
+            <span className="info__image__video__btn-icon">
+              {iconsData.star}
+            </span>
+          </p>
+        )}
+        <div className="info__image__video__player">
+          <VideoPlayer embedId={trailerUrl && trailerUrl} />
         </div>
       </div>
     </div>

@@ -28,6 +28,7 @@ const Search = () => {
     searchQuery,
     setSearchQuery,
     optionState,
+    searchOptionState,
     searchInputRef,
     movieState,
     setMovieState,
@@ -67,21 +68,32 @@ const Search = () => {
           <input
             //ref={searchInputRef}
             type="text"
-            placeholder={optionState === "movie" ? "Search Movie" : "Search Tv"}
+            //placeholder={optionState === "movie" ? "Search Movie" : "Search Tv"}
+            placeholder={
+              searchOptionState === "movie" ? "Search Movie" : "Search Tv"
+            }
             onChange={(e) => {
               setSearchQuery(e.target.value);
               //sessionStorage.setItem('searchQuery', searchQuery)
-              if (sessionStorage.getItem("movieState") === "movie") {
+              // if (sessionStorage.getItem("movieState") === "movie") {
+              //   dispatch(getMovieResults(searchQuery));
+              // }
+
+              // if (sessionStorage.getItem("movieState") === "tv") {
+              //   dispatch(getTvResults(searchQuery));
+              // }
+
+              if (searchOptionState === "movie") {
                 dispatch(getMovieResults(searchQuery));
               }
 
-              if (sessionStorage.getItem("movieState") === "tv") {
+              if (searchOptionState === "tv") {
                 dispatch(getTvResults(searchQuery));
               }
             }}
             value={searchQuery}
           />
-          {sessionStorage.getItem("movieState") === "movie" && searchQuery && (
+          {searchOptionState === "movie" && searchQuery && (
             <span
               //ref={clearMovieInputRef}
               onClick={() => {
@@ -94,7 +106,7 @@ const Search = () => {
             </span>
           )}
 
-          {sessionStorage.getItem("movieState") === "tv" && searchQuery && (
+          {searchOptionState === "tv" && searchQuery && (
             <span
               //ref={clearTvInputRef}
               onClick={() => {
@@ -111,12 +123,12 @@ const Search = () => {
         </form>
       </div>
 
-      {sessionStorage.getItem("movieState") === "movie" &&
+      {searchOptionState === "movie" &&
         searchQuery &&
         movieResults &&
         movieResults.length > 0 && <SearchResults results={movieResults} />}
 
-      {sessionStorage.getItem("movieState") === "tv" &&
+      {searchOptionState === "tv" &&
         searchQuery &&
         tvResults &&
         tvResults.length > 0 && <SearchResults results={tvResults} />}
