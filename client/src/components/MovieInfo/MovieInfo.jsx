@@ -61,8 +61,6 @@ const MovieInfo = ({ id, data, loading, error }) => {
   const playerRef = useRef(null);
   const playerInnerRef = useRef(null);
 
-  console.log(trailerUrl);
-
   // redux state
   const savedMovies = useSelector((state) => state.savedMovies.savedMovies);
   const user = useSelector((state) => state.savedMovies.user);
@@ -146,6 +144,8 @@ const MovieInfo = ({ id, data, loading, error }) => {
         </div>
       </div>
 
+      {/* Image Video */}
+
       <div className="info__image__video">
         <img
           className="info__image__video--image"
@@ -172,7 +172,7 @@ const MovieInfo = ({ id, data, loading, error }) => {
 
         {user && savedMovies && savedMovies.length === 0 && (
           <p
-            className="info__image__video__add-btn"
+            className="info__image__video__add__btn"
             onClick={() =>
               addMovie(
                 id,
@@ -186,7 +186,7 @@ const MovieInfo = ({ id, data, loading, error }) => {
               )
             }
           >
-            <span className="info__image__video__add-btn-icon">
+            <span className="info__image__video__add__btn-icon">
               {iconsData.star}
             </span>
           </p>
@@ -196,43 +196,44 @@ const MovieInfo = ({ id, data, loading, error }) => {
         {user &&
           savedMovies &&
           savedMovies.length > 0 &&
-          savedMovies.every((item, index) => item.id !== id) && (
+          savedMovies.every((item, index) => item.id !== Number(id)) && (
             <p
               key={id}
-              className="info__image__video__add-btn"
+              className="info__image__video__add__btn"
               onClick={() =>
                 addMovie(
                   id,
-                  title,
-                  poster_path,
-                  backdrop_path,
-                  release_date,
-                  vote_average,
+                  data.title,
+                  data.poster_path,
+                  data.backdrop_path,
+                  data.release_date,
+                  data.vote_average,
                   genre_ids,
-                  overview
+                  data.overview
                 )
               }
             >
-              <span className="info__image__video__add-btn-icon">
+              <span className="info__image__video__add__btn-icon">
                 {iconsData.star}
               </span>
             </p>
           )}
+
         {/* DELETE-BUTTON */}
         {user &&
           savedMovies &&
           savedMovies.length > 0 &&
           savedMovies.map((item, index) => {
-            if (item.id === id) {
+            if (item.id === Number(id)) {
               return (
                 <p
                   key={index}
-                  className="info__image__video__delete-btn"
+                  className="info__image__video__delete__btn"
                   onClick={() => deleteMovie(id)}
                   style={{ background: "gold" }}
                 >
                   <span
-                    className="info__image__video__delete-btn--icon"
+                    className="info__image__video__delete__btn-icon"
                     style={{ color: "#000" }}
                   >
                     {iconsData.star}
@@ -241,6 +242,7 @@ const MovieInfo = ({ id, data, loading, error }) => {
               );
             }
           })}
+
         {/* ADD-BUTTON (without user) */}
         {!user && (
           <p
@@ -254,6 +256,138 @@ const MovieInfo = ({ id, data, loading, error }) => {
         )}
         <div className="info__image__video__player">
           <VideoPlayer embedId={trailerUrl && trailerUrl} />
+        </div>
+      </div>
+
+      {/* Image Detail */}
+      <div className="info__image__detail">
+        <img
+          className="info__image__detail--image"
+          src={
+            data.poster_path === null ? url : APIs.img_path + data.poster_path
+          }
+          alt={data.title}
+        />
+
+        <div
+          className={
+            "info__image__detail__rating " + getClassBg(data.vote_average)
+          }
+        >
+          <CircularProgressbar
+            value={data.vote_average * 10}
+            strokeWidth={5}
+            styles={buildStyles({
+              pathColor: "#fff",
+            })}
+          />
+          <span>{Number(String(data.vote_average).substring(0, 3))}</span>
+        </div>
+
+        {user && savedMovies && savedMovies.length === 0 && (
+          <p
+            className="info__image__detail__add__btn"
+            onClick={() =>
+              addMovie(
+                id,
+                data.title,
+                data.poster_path,
+                data.backdrop_path,
+                data.release_date,
+                data.vote_average,
+                genre_ids,
+                data.overview
+              )
+            }
+          >
+            <span className="info__image__detail__add__btn-icon">
+              {iconsData.star}
+            </span>
+          </p>
+        )}
+
+        {/* ADD-BUTTON */}
+        {user &&
+          savedMovies &&
+          savedMovies.length > 0 &&
+          savedMovies.every((item, index) => item.id !== Number(id)) && (
+            <p
+              key={id}
+              className="info__image__detail__add__btn"
+              onClick={() =>
+                addMovie(
+                  id,
+                  data.title,
+                  data.poster_path,
+                  data.backdrop_path,
+                  data.release_date,
+                  data.vote_average,
+                  genre_ids,
+                  data.overview
+                )
+              }
+            >
+              <span className="info__image__detail__add__btn-icon">
+                {iconsData.star}
+              </span>
+            </p>
+          )}
+
+        {/* DELETE-BUTTON */}
+        {user &&
+          savedMovies &&
+          savedMovies.length > 0 &&
+          savedMovies.map((item, index) => {
+            if (item.id === Number(id)) {
+              return (
+                <p
+                  key={index}
+                  className="info__image__detail__delete__btn"
+                  onClick={() => deleteMovie(id)}
+                  style={{ background: "gold" }}
+                >
+                  <span
+                    className="info__image__detail__delete__btn-icon"
+                    style={{ color: "#000" }}
+                  >
+                    {iconsData.star}
+                  </span>
+                </p>
+              );
+            }
+          })}
+
+        {/* ADD-BUTTON (without user) */}
+        {!user && (
+          <p
+            className="info__image__detail__btn "
+            onClick={() => navigate("/login")}
+          >
+            <span className="info__image__detail__btn-icon">
+              {iconsData.star}
+            </span>
+          </p>
+        )}
+
+        <div className="info__image__detail__inner">
+          <div className="info__image__detail__inner__genres">
+            {genres &&
+              Array.from(genres).length > 0 &&
+              Array.from(genres).map((genre, index) => (
+                <span
+                  key={index}
+                  className={
+                    mode === true ? "genreDarkBorder" : "genreLightBorder"
+                  }
+                >
+                  {genre.genre}
+                </span>
+              ))}
+          </div>
+
+          <div className="info__image__detail__inner__overview">
+            <span>{data.overview && data.overview}</span>
+          </div>
         </div>
       </div>
     </div>
