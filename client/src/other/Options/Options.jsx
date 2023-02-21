@@ -58,6 +58,7 @@ const Options = () => {
   }, [open]);
 
   const handleOptionState = () => {
+    setSearchQuery("");
     if (searchOptionState === "movie") {
       setSearchOptionState("tv");
       //setOptionState("tv");

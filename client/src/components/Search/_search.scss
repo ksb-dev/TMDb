@@ -11,7 +11,7 @@
   &__search-bar {
     display: flex;
     align-items: center;
-    //background: #fff;
+    background: #fff;
 
     form {
       position: relative;
@@ -81,7 +81,7 @@
     align-items: center;
     justify-content: center;
     &__switch {
-      display: none;
+     // display: none;
     }
 
     &__search-bar {

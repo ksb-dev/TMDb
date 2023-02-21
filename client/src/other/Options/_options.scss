@@ -50,18 +50,16 @@
   .option__main {
     &__current {
       font-weight: 400;
-      height: 35.2px;
-      background: var(--primary);
-      color: #000;
+      height: 32.2px;
+      border: 2px solid var(--primary);
       border-radius: var(--border-radius-1);
     }
 
     &__option {
       font-weight: 400;
-      height: 35.2px;
+      height: 32.2px;
       top: 2.3rem;
-      background: var(--primary);
-      color: #000;
+      border: 2px solid var(--primary);
     }
   }
 }

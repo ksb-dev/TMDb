@@ -16,23 +16,23 @@ const SearchResults = ({ results }) => {
   };
 
   // Close search results
-  useEffect(() => {
-    // if (windowWidth <= "786") {
-    //   setSearchQuery("");
-    // }
+  // useEffect(() => {
+  //   // if (windowWidth <= "786") {
+  //   //   setSearchQuery("");
+  //   // }
 
-    const closeSearchResults = (e) => {
-      if (e.target.nodeName !== "INPUT") {
-        setSearchQuery("");
-      }
-    };
+  //   const closeSearchResults = (e) => {
+  //     if (e.target.nodeName !== "INPUT") {
+  //       setSearchQuery("");
+  //     }
+  //   };
 
-    document.body.addEventListener("click", closeSearchResults);
+  //   document.body.addEventListener("click", closeSearchResults);
 
-    return () => {
-      document.body.removeEventListener("click", closeSearchResults);
-    };
-  }, [windowWidth]);
+  //   return () => {
+  //     document.body.removeEventListener("click", closeSearchResults);
+  //   };
+  // }, [windowWidth]);
 
   return (
     <div

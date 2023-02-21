@@ -23,6 +23,7 @@ const SmallHeader = () => {
     setOptionState,
     setSearchQuery,
     searchIconRef,
+    searchModalRef,
   } = useMovieContext();
   const navigate = useNavigate();
 
@@ -39,6 +40,11 @@ const SmallHeader = () => {
     setMovieState(!movieState);
 
     navigate("/");
+  };
+
+  const showModal = () => {
+    searchModalRef.current.style.zIndex = "5";
+    searchModalRef.current.style.opacity = "1";
   };
 
   return (
@@ -58,7 +64,11 @@ const SmallHeader = () => {
 
         {/* <Search /> */}
 
-        <span ref={searchIconRef} className="search-icon">
+        <span
+          ref={searchIconRef}
+          className="search-icon"
+          onClick={() => showModal()}
+        >
           {iconsData.searchIcon}
         </span>
       </div>

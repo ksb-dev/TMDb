@@ -11,6 +11,30 @@
     &__inner {
         margin: 1rem;
     }
+
+    &__close {
+        position: absolute;
+        bottom: 1rem;
+        left: 45%;
+        background: var(--red);
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+
+        span {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+        }
+    }
+
+    &__close:hover {
+        filter: brightness(80%);
+        transition: var(--transition);
+    }
 }  
 
 @media screen and (max-width: 786px){

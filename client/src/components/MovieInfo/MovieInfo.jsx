@@ -143,21 +143,6 @@ const MovieInfo = ({ id, data, loading, error }) => {
               </span>
             )}
           </div>
-
-          <div
-            className={
-              "info__detail__one__rating " + getClassBg(data.vote_average)
-            }
-          >
-            <CircularProgressbar
-              value={data.vote_average * 10}
-              strokeWidth={5}
-              styles={buildStyles({
-                pathColor: "#fff",
-              })}
-            />
-            <span>{Number(String(data.vote_average).substring(0, 3))}</span>
-          </div>
         </div>
       </div>
 
@@ -169,6 +154,21 @@ const MovieInfo = ({ id, data, loading, error }) => {
           }
           alt={data.title}
         />
+
+        <div
+          className={
+            "info__image__video__rating " + getClassBg(data.vote_average)
+          }
+        >
+          <CircularProgressbar
+            value={data.vote_average * 10}
+            strokeWidth={5}
+            styles={buildStyles({
+              pathColor: "#fff",
+            })}
+          />
+          <span>{Number(String(data.vote_average).substring(0, 3))}</span>
+        </div>
 
         {user && savedMovies && savedMovies.length === 0 && (
           <p
