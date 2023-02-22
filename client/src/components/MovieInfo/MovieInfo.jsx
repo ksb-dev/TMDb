@@ -56,7 +56,7 @@ const MovieInfo = ({ id, data, loading, error }) => {
 
   // Youtube player properties
   const [trailerUrl, setTrailerUrl] = useState("");
-  const [playerLoading, setPlayerLoading] = useState(false);
+  const [playerLoading, setPlayerLoading] = useState(true);
   const [playerError, setPlayerError] = useState("");
   const playerRef = useRef(null);
   const playerInnerRef = useRef(null);
@@ -67,7 +67,15 @@ const MovieInfo = ({ id, data, loading, error }) => {
 
   // Get trailer
   useEffect(() => {
-    getTrailer(id, trailerUrl, setTrailerUrl, setPlayerLoading, setPlayerError);
+    setTimeout(() => {
+      getTrailer(
+        id,
+        trailerUrl,
+        setTrailerUrl,
+        setPlayerLoading,
+        setPlayerError
+      );
+    }, 500);
   }, []);
 
   // Get & store genre__ids
@@ -255,7 +263,11 @@ const MovieInfo = ({ id, data, loading, error }) => {
           </p>
         )}
         <div className="info__image__video__player">
-          <VideoPlayer embedId={trailerUrl && trailerUrl} />
+          {playerLoading && <Loading />}
+          {playerError && <Error />}
+          {!playerLoading && !playerError && (
+            <VideoPlayer embedId={trailerUrl && trailerUrl} />
+          )}
         </div>
       </div>
 
@@ -387,6 +399,29 @@ const MovieInfo = ({ id, data, loading, error }) => {
 
           <div className="info__image__detail__inner__overview">
             <span>{data.overview && data.overview}</span>
+          </div>
+
+          <div className="info__image__detail__inner__date-time">
+            {data.release_date && (
+              <span className="info__image__detail__inner__date-time--date">
+                <BsCalendar2Date size={"20px"} style={{ marginRight: "5px" }} />
+                {moment(data.release_date).format("Do MMM, YYYY")}
+              </span>
+            )}
+
+            {data.runtime && (
+              <span className="info__image__detail__inner__date-time--time">
+                <MdOutlineAccessTime
+                  size={"20px"}
+                  style={{ marginRight: "5px" }}
+                />
+                <>
+                  {`${Math.floor(data.runtime / 60)}` > 0 &&
+                    `${Math.floor(data.runtime / 60)}h`}
+                  {` ${data.runtime % 60}`}m
+                </>
+              </span>
+            )}
           </div>
         </div>
       </div>
