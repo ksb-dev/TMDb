@@ -58,6 +58,11 @@ const MovieProvider = ({ children }) => {
   const clearMovieInputRef = useRef(null);
   const clearTvInputRef = useRef(null);
 
+  // Backdrops states
+  const [backdrops, setBackdrops] = useState([]);
+  const [backdropsLoading, setBackdropsLoading] = useState(false);
+  const [backdropsError, setBackdropsError] = useState("");
+
   return (
     <MovieContext.Provider
       value={{
@@ -106,6 +111,13 @@ const MovieProvider = ({ children }) => {
         searchModalRef,
         clearMovieInputRef,
         clearTvInputRef,
+
+        backdrops,
+        setBackdrops,
+        backdropsLoading,
+        setBackdropsLoading,
+        backdropsError,
+        setBackdropsError,
       }}
     >
       {children}

@@ -94,7 +94,17 @@ const MovieDetail = () => {
 
       <MovieInfo id={id} data={data} loading={loading} error={error} />
 
-      <CastBackdropsVideo />
+      {!loading && !error && (
+        <CastBackdropsVideo
+          id={id}
+          cast={cast}
+          castError={castError}
+          castLoading={castLoading}
+          setCast={setCast}
+          setCastLoading={setCastLoading}
+          setCastError={setCastError}
+        />
+      )}
 
       {/* <MovieDetail
         data={data}

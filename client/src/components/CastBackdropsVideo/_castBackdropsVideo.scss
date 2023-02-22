@@ -1,9 +1,53 @@
-.cast-backdrop-video {
-    padding: 0 2.5% 2rem 2.5%;
+.castBackdropVideo {
+    padding: 0.5rem 2.5% 2rem 2.5%;
+
+    &__options {
+        //width: min-content;
+
+        span {
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin-right: 0.25rem;
+        }
+
+        span:first-child {
+            border-top-left-radius: var(--border-radius-1);
+            border-bottom-left-radius: var(--border-radius-1);
+        }
+
+        span:last-child {
+            border-top-right-radius: var(--border-radius-1);
+            border-bottom-right-radius: var(--border-radius-1);
+        }
+
+        span:hover {
+            filter: brightness(80%);
+            transition: var(--transition);
+        }
+    }
 }
 
 @media screen and (max-width:786px){
-    .cast-backdrop-video {
+    .castBackdropVideo {
         padding: 0 2rem 2rem 2rem;
     }
+}
+
+@media screen and (max-width:640px){
+    .castBackdropVideo {
+        padding: 0 2rem 2rem 2rem;
+
+        &__options {
+            //width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+.activeCastBackdropVideo {
+    background: var(--primary) !important;
+    color: #000;
 }

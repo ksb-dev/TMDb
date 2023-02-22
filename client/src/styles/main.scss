@@ -26,6 +26,7 @@
 
   --dark-1: #222831;
   --dark-1: #333333;
+  --dark-1: #444444;
 
   //--dark-2: #222222;
   //--dark-2: #1f1f1f;
@@ -166,8 +167,8 @@
 .darkGradient {
   background: linear-gradient(
     to right top,
-    rgba(34, 40, 49, 1) 20%,
-    rgba(34, 40, 49, 0)
+    rgba(34, 34, 34, 1) 20%,
+    rgba(34, 34, 34, 0)
   );
 }
 
@@ -184,7 +185,7 @@
   background: linear-gradient(
     to right top,
     rgba(34, 34, 34, 1) 20%,
-    rgba(34, 40, 49, 0)
+    rgba(34, 34, 34, 0)
   );
 }
 

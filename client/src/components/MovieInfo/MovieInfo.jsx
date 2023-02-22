@@ -400,29 +400,6 @@ const MovieInfo = ({ id, data, loading, error }) => {
           <div className="info__image__detail__inner__overview">
             <span>{data.overview && data.overview}</span>
           </div>
-
-          <div className="info__image__detail__inner__date-time">
-            {data.release_date && (
-              <span className="info__image__detail__inner__date-time--date">
-                <BsCalendar2Date size={"20px"} style={{ marginRight: "5px" }} />
-                {moment(data.release_date).format("Do MMM, YYYY")}
-              </span>
-            )}
-
-            {data.runtime && (
-              <span className="info__image__detail__inner__date-time--time">
-                <MdOutlineAccessTime
-                  size={"20px"}
-                  style={{ marginRight: "5px" }}
-                />
-                <>
-                  {`${Math.floor(data.runtime / 60)}` > 0 &&
-                    `${Math.floor(data.runtime / 60)}h`}
-                  {` ${data.runtime % 60}`}m
-                </>
-              </span>
-            )}
-          </div>
         </div>
       </div>
     </div>

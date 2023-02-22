@@ -3,7 +3,6 @@
     width: 95%;
     min-height: 100vh;
     margin: 0 2.5%;
-    //padding-bottom: calc(58.6px + 2rem);
     padding-bottom: 3rem;
 
     &__detail {
@@ -14,12 +13,12 @@
         
         &__one {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
 
             &__title-tgline {
                 display: flex;
                 flex-direction: column;
-                margin-right: 1rem;
+                //margin-right: 1rem;
 
                 .title {
                     font-weight: 500;
@@ -34,14 +33,12 @@
 
             &__date-time {
                 display: flex;
-                display: none;
-                //flex-direction: column;
-                align-items: flex-end;
-                justify-content: center;
+                align-items: center;
+                margin-top: 1rem;
 
                 .date,
                 .time {
-                    color: grey;
+                    color: gray;
                     display: flex;
                     align-items: center;
                     font-weight: 400;
@@ -49,7 +46,7 @@
                 }
 
                 .date {
-                    margin-bottom: 0.5rem;
+                   margin-right: 1rem;
                 }
             }
         }
@@ -185,23 +182,6 @@
             &__overview {
                 margin-bottom: 1rem;
             }
-
-            &__date-time {
-                //display: flex;
-
-                &--date {
-                    //margin-right: 1rem;
-                    margin-bottom: 0.5rem;
-                }
-
-                &--date,
-                &--time {
-                    color: grey;
-                    font-size: 0.9rem;
-                    display: flex;
-                    align-items: center;
-                }
-            }
         }
     }
 }
@@ -229,7 +209,7 @@
                 }
 
                 &__date-time {
-                    display: none;
+                    margin-left: 1rem;
                 }
             }
         }
@@ -282,25 +262,6 @@
                         font-size: 0.9rem;
                     }
                 }
-
-                // &__overview {
-                //     margin-bottom: 1rem;
-                // }
-
-                // &__date-time {
-                //     display: flex;
-
-                //     &--date {
-                //         margin-right: 1rem;
-                //     }
-
-                //     &--date,
-                //     &--time {
-                //         font-size: 0.9rem;
-                //         display: flex;
-                //         align-items: center;
-                //     }
-                // }
             }
         }
     }
@@ -327,29 +288,29 @@
            }
 
            &__rating {
-            left: unset;
-            right: 2.25rem;
+              left: unset;
+              right: 2.25rem;
            }
 
-           &__btn,
+            &__btn,
             &__add__btn,
             &__delete__btn {
                 height: 50px;
                 width: 50px;
             }
 
-           &--image {
-            margin-bottom: 2rem;
-            margin-right: 0;
-            width: 100%;
-           }
+            &--image {
+                margin-bottom: 2rem;
+                margin-right: 0;
+                width: 100%;
+            }
 
-           &__inner {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
-           }
+            &__inner {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+            }
         }
     }
 }
