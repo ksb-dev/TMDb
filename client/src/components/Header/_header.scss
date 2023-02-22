@@ -53,22 +53,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--primary);
+      //background: var(--primary);
       border-radius: var(--border-radius-1);
       padding: 0.25rem;
 
       .watchlist {
-        padding: 0.25rem 0.5rem;
+        padding: 0.5rem;
         font-weight: 500;
         text-decoration: none;
-        background: var(--primary);
-        color: #000;
+        //background: var(--primary);
+        color: #fff;
         border-radius: var(--border-radius-1);
         cursor: pointer;
         margin: 0;
         display: flex;
         align-items: center;
-        margin-left: 0.25rem;
+        margin-left: 0.5rem;
 
         p {
           display: none;
@@ -76,8 +76,8 @@
           position: relative;
           width: 30px;
           height: 30px;
-          background: var(--primary);
-          color: #000;
+          //background: var(--primary);
+          color: #fff;
           border-radius: 50%;
 
           span {
@@ -102,11 +102,11 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        margin-left: 0.25rem;
+        margin-left: 0.5rem;
         border-radius: var(--border-radius-1);
-        background: var(--primary);
-        color: #000;
-        padding: 0.25rem 0.5rem;
+        //background: var(--primary);
+        color: #fff;
+        padding: 0.5rem 0.5rem;
       }
 
       .home-icon {
@@ -125,15 +125,15 @@
           align-items: center;
           border-radius: var(--border-radius-1);
           cursor: pointer;
-          margin-left: 0.25rem;
-          background: var(--primary);
-          color: #000;
-          padding: 0.25rem 0.5rem;
+          margin-left: 0.5rem;
+          //background: var(--primary);
+          color: #fff;
+          padding: 0.5rem 0.5rem;
         }
 
         .close-icon {
           background: var(--primary);
-          border-radius: var(--border-radius-1);
+          border-radius: 50%;
           color: #000;
         }
 
@@ -233,8 +233,8 @@
 
 .activeRoute {
   background: var(--primary) !important;
-  background: #000 !important;
+  //background: #000 !important;
   color: #000 !important;
-  color: var(--primary) !important;
-  border-radius: var(--border-radius-1) !important;
+  //color: var(--primary) !important;
+  border-radius: 50% !important;
 }
