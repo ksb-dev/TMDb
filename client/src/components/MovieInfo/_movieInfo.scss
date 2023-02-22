@@ -3,7 +3,8 @@
     width: 95%;
     min-height: 100vh;
     margin: 0 2.5%;
-    padding-bottom: calc(58.6px + 2rem);
+    //padding-bottom: calc(58.6px + 2rem);
+    padding-bottom: 3rem;
 
     &__detail {
         padding: calc(58.4px + 2rem) 0 1rem 0;
@@ -34,7 +35,7 @@
             &__date-time {
                 display: flex;
                 display: none;
-                flex-direction: column;
+                //flex-direction: column;
                 align-items: flex-end;
                 justify-content: center;
 
@@ -186,10 +187,11 @@
             }
 
             &__date-time {
-                display: flex;
+                //display: flex;
 
                 &--date {
-                    margin-right: 1rem;
+                    //margin-right: 1rem;
+                    margin-bottom: 0.5rem;
                 }
 
                 &--date,

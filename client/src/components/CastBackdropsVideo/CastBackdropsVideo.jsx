@@ -1,7 +1,7 @@
 import React from "react";
 
 const CastBackdropsVideo = () => {
-  return <div>CastBackdropsVideo</div>;
+  return <div className="cast-backdrop-video">CastBackdropsVideo</div>;
 };
 
 export default CastBackdropsVideo;

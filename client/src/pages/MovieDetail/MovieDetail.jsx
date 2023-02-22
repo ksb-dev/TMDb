@@ -20,6 +20,7 @@ import Menu from "../../components/Menu/Menu";
 import SearchModal from "../../components/SearchModal/SearchModal";
 
 import MovieInfo from "../../components/MovieInfo/MovieInfo";
+import CastBackdropsVideo from "../../components/CastBackdropsVideo/CastBackdropsVideo";
 //import YouTubePlayer from '../../Components/MovieDetail/YoutubePlayer/YouTubePlayer'
 //import CastBackdropVideo from '../../Components/CastBackdropVideo/CastBackdropVideo'
 //import Reviews from '../../Components/Reviews/Reviews'
@@ -92,6 +93,8 @@ const MovieDetail = () => {
       <SearchModal />
 
       <MovieInfo id={id} data={data} loading={loading} error={error} />
+
+      <CastBackdropsVideo />
 
       {/* <MovieDetail
         data={data}

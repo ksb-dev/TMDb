@@ -1,0 +1,9 @@
+.cast-backdrop-video {
+    padding: 0 2.5% 2rem 2.5%;
+}
+
+@media screen and (max-width:786px){
+    .cast-backdrop-video {
+        padding: 0 2rem 2rem 2rem;
+    }
+}
