@@ -64,7 +64,6 @@
 
         &__rating {
             position: absolute;
-            //left: 0.5rem;
             left: 15rem;
             top: 0.25rem;
             width: 50px;
@@ -87,7 +86,6 @@
         &__delete__btn {
             position: absolute;
             z-index: 1;
-            //bottom: -1rem;
             top: -1rem;
             width: 50px;
             height: 50px;
@@ -125,7 +123,6 @@
         &__rating {
             display: none;
             position: absolute;
-            //left: 2.5rem;
             left: 14rem;
             top: 0.25rem;
             width: 50px;
@@ -149,7 +146,6 @@
             display: none;
             position: absolute;
             z-index: 1;
-            //bottom: -1rem;
             top: -1rem;
             width: 50px;
             height: 50px;
@@ -295,13 +291,9 @@
         }
 
         &__image__detail {
-           //align-items: center;
-           //flex-direction: column;
-           //justify-content: center;
+           flex-direction: column;
            
-
            &__inner {
-            //margin-top: 6rem;
                 &__genres {
                     span {
                         font-size: 0.9rem;
@@ -311,33 +303,21 @@
            }
 
            &__rating {
-            display: none;
-            //position: relative;
-            //height: 25px;
-            //width: 25px;
-            //left: 9.25rem;
-            top: 0;
             left: unset;
-            right: 2rem;
-            span {
-                //font-size: 0.7rem;
-            }
+            right: 2.25rem;
            }
 
            &__btn,
             &__add__btn,
             &__delete__btn {
-                display: none;
-                border-radius: 50%;
                 height: 50px;
                 width: 50px;
             }
 
            &--image {
-            display: none;
-            width: 150px;
             margin-bottom: 2rem;
-            //margin-right: 0;
+            margin-right: 0;
+            width: 100%;
            }
 
            &__inner {
