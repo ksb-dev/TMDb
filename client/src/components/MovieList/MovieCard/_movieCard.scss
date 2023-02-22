@@ -54,6 +54,9 @@
     flex-direction: column;
     justify-content: space-between;
 
+    border-bottom-left-radius: var(--border-radius-1);
+    border-bottom-right-radius: var(--border-radius-1);
+
     &--title {
       font-weight: 500;
       margin: 0 0 0.5rem 0;
@@ -62,6 +65,7 @@
     &__date-rating {
       display: flex;
       justify-content: space-between;
+      border-radius: var(--border-radius-1);
 
       &--date {
         display: flex;
@@ -78,6 +82,9 @@
         height: 35px;
         width: 35px;
         position: relative;
+
+        border-top-right-radius: var(--border-radius-1);
+        border-bottom-right-radius: var(--border-radius-1);
 
         span {
           position: absolute;
