@@ -33,15 +33,17 @@
 
             &__date-time {
                 display: flex;
+                display: none;
                 flex-direction: column;
                 align-items: flex-end;
                 justify-content: center;
 
                 .date,
                 .time {
+                    color: grey;
                     display: flex;
                     align-items: center;
-                    font-weight: 500;
+                    font-weight: 400;
                     font-size: 0.9rem;
                 }
 
@@ -177,8 +179,24 @@
                 }
             }
 
+            &__overview {
+                margin-bottom: 1rem;
+            }
+
             &__date-time {
-                display: none;
+                display: flex;
+
+                &--date {
+                    margin-right: 1rem;
+                }
+
+                &--date,
+                &--time {
+                    color: grey;
+                    font-size: 0.9rem;
+                    display: flex;
+                    align-items: center;
+                }
             }
         }
     }
@@ -259,24 +277,24 @@
                     }
                 }
 
-                &__overview {
-                    margin-bottom: 1rem;
-                }
+                // &__overview {
+                //     margin-bottom: 1rem;
+                // }
 
-                &__date-time {
-                    display: flex;
+                // &__date-time {
+                //     display: flex;
 
-                    &--date {
-                        margin-right: 1rem;
-                    }
+                //     &--date {
+                //         margin-right: 1rem;
+                //     }
 
-                    &--date,
-                    &--time {
-                        font-size: 0.9rem;
-                        display: flex;
-                        align-items: center;
-                    }
-                }
+                //     &--date,
+                //     &--time {
+                //         font-size: 0.9rem;
+                //         display: flex;
+                //         align-items: center;
+                //     }
+                // }
             }
         }
     }
