@@ -62,6 +62,7 @@
         &--image {
             height: 450px;
             margin-right: 0.5rem;
+            border-radius: var(--border-radius-1);
         }
 
         &__rating {
@@ -111,6 +112,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: var(--border-radius-1);
         }
     }
 

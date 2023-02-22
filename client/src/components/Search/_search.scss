@@ -5,13 +5,15 @@
 
   &__switch {
     color: #000;
-    //margin-right: 1px;
+    border-radius: var(--border-radius-1);
   }
 
   &__search-bar {
     display: flex;
     align-items: center;
     background: #fff;
+    border-top-right-radius: var(--border-radius-1);
+    border-bottom-right-radius: var(--border-radius-1);
 
     form {
       position: relative;
@@ -80,6 +82,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     &__switch {
      // display: none;
     }

@@ -142,7 +142,7 @@ const Header = () => {
 
           {window.location.pathname === "/watchlist" ? (
             <Link to="/watchlist" className="watchlist activeRoute">
-              {iconsData.star}
+              {iconsData.star2}
               <p>
                 <span>
                   {optionState === "movie"
@@ -153,7 +153,7 @@ const Header = () => {
             </Link>
           ) : (
             <Link to="/watchlist" className="watchlist">
-              {iconsData.star}
+              {iconsData.star2}
               <p>
                 <span>
                   {optionState === "movie"

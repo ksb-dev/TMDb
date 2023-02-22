@@ -30,7 +30,7 @@ import Loading from "../../other/Loading/Loading";
 import Error from "../../other/Error/Error";
 
 const MovieDetail = () => {
-  const { mode } = useMovieContext();
+  const { mode, movieState } = useMovieContext();
   const dispatch = useDispatch();
 
   const { getMovieInfo, getCast, getReviews } = useGetMovieInfo();
@@ -63,7 +63,7 @@ const MovieDetail = () => {
     if (savedToken !== "" || savedToken !== undefined || savedToken !== null) {
       dispatch(setSavedMovies());
     }
-  }, [dispatch]);
+  }, [dispatch, movieState]);
 
   useEffect(() => {
     // 1. Get movie info

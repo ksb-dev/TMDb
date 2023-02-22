@@ -54,7 +54,8 @@ const Search = () => {
   return (
     <div
       className={
-        "search__component " + (mode === true ? "lightAlpha5" : "darkAlpha5")
+        "search__component "
+        //+ (mode === true ? "lightAlpha5" : "darkAlpha5")
       }
     >
       {/* Options */}

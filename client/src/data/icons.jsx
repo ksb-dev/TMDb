@@ -4,7 +4,8 @@ import React from "react";
 import {
   AiOutlinePlus,
   AiOutlineCheck,
-  AiFillCloseCircle,
+  AiOutlineHome,
+  AiOutlineStar,
 } from "react-icons/ai";
 import {
   BsSun,
@@ -19,6 +20,7 @@ import {
   BiLogOutCircle,
   BiUserCircle,
   BiArrowBack,
+  BiHome,
 } from "react-icons/bi";
 import { GiFilmSpool } from "react-icons/gi";
 import {
@@ -30,7 +32,7 @@ import {
 import { TfiMenu } from "react-icons/tfi";
 import { ImFilm } from "react-icons/im";
 import { RiStarFill } from "react-icons/ri";
-import { TfiHome } from "react-icons/tfi";
+import { HiOutlineHome } from "react-icons/hi";
 import { FaWindowClose } from "react-icons/fa";
 
 export const iconsData = {
@@ -58,13 +60,14 @@ export const iconsData = {
   ),
   star: <RiStarFill size={"20px"} />,
   star1: <RiStarFill size={"20px"} style={{ marginRight: "0.5rem" }} />,
+  star2: <AiOutlineStar size={"20px"} />,
   next: <MdOutlineArrowForwardIos size={"20px"} />,
   prev: <MdOutlineArrowBackIosNew size={"20px"} />,
   menu: <TfiMenu size={"20px"} style={{ marginRight: "0.5rem" }} />,
   back: <BiArrowBack size={"20px"} style={{ marginRight: "0.5rem" }} />,
   eyeOpen: <BsEye />,
   eyeClose: <BsEyeSlash />,
-  home: <TfiHome size={"20px"} />,
+  home: <BiHome size={"20px"} />,
   watchlist: <BsCheckCircle size={"20px"} />,
   addBookmark: <AiOutlinePlus size={"20px"} />,
   deleteBookmark: <AiOutlineCheck size={"20px"} />,
