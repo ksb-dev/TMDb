@@ -70,14 +70,14 @@ const MovieDetail = () => {
     // 1. Get movie info
     getMovieInfo(id, setData, setLoading, setError);
 
-    getCast(id, setCast, setCastLoading, setCastError);
+    //getCast(id, setCast, setCastLoading, setCastError);
 
     getReviews(id, setReviews, setReviewsLoading, setReviewsError);
 
     //2. Get cast
-    // setTimeout(() => {
-    //   getCast(id, setCast, setCastLoading, setCastError)
-    // }, 1000)
+    setTimeout(() => {
+      getCast(id, setCast, setCastLoading, setCastError);
+    }, 500);
 
     // // 3. Get Reviews
     // setTimeout(() => {

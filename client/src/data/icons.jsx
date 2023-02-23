@@ -32,8 +32,8 @@ import {
 import { TfiMenu } from "react-icons/tfi";
 import { ImFilm } from "react-icons/im";
 import { RiStarFill } from "react-icons/ri";
-import { HiOutlineHome } from "react-icons/hi";
 import { FaWindowClose } from "react-icons/fa";
+import { IoChevronForwardOutline } from "react-icons/io5";
 
 export const iconsData = {
   sunIcon: <BsSun size={"20px"} />,
@@ -71,4 +71,7 @@ export const iconsData = {
   watchlist: <BsCheckCircle size={"20px"} />,
   addBookmark: <AiOutlinePlus size={"20px"} />,
   deleteBookmark: <AiOutlineCheck size={"20px"} />,
+  forwardArrow: (
+    <IoChevronForwardOutline size={"30px"} style={{ margin: "0.5rem 0 0 0" }} />
+  ),
 };

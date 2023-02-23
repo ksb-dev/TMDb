@@ -57,6 +57,7 @@ const SearchModal = () => {
   // }, [windowWidth]);
 
   const hideModal = () => {
+    setSearchQuery("");
     searchModalRef.current.style.zIndex = "-1";
     searchModalRef.current.style.opacity = "0";
   };
