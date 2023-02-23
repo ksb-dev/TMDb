@@ -215,6 +215,7 @@
         }
 
         &__image__video {
+            margin-bottom: 4rem;
     
             &--image {
                 display: none;
@@ -276,6 +277,7 @@
         }
 
         &__image__detail {
+           padding: 0 1rem;
            flex-direction: column;
            
            &__inner {
@@ -289,7 +291,7 @@
 
            &__rating {
               left: unset;
-              right: 2.25rem;
+              right: 1.25rem;
            }
 
             &__btn,

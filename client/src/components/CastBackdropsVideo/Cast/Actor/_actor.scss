@@ -33,8 +33,8 @@
 
 @media screen and (max-width:786px){
     .actor {
+        padding: 0.25rem 0.5rem;
         flex-direction: column;
-        justify-content: center;
 
         &__image {
             margin: 0;
@@ -48,14 +48,15 @@
         &__name-character {
             display: flex;
             flex-direction: column;
-            align-items: center;
     
             .name {
+                text-align: center;
                 font-weight: 500;
                 font-size: 1rem;
             }
 
             .character {
+                text-align: center;
                 font-weight: 0.7rem;
             }
         }
@@ -65,23 +66,19 @@
 @media screen and (max-width:640px){
     .actor {
         flex-direction: column;
-        justify-content: center;
         padding: 0.25rem 0.5rem;
+        //padding: 0;
 
         &__image {
             margin: 0;
 
             img {
-                width: 100px;
-                height: 100px;
+                width: 125px;
+                height: 125px;
             }
         }
 
-        &__name-character {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-    
+        &__name-character {  
             .name {
                 font-weight: 500;
                 font-size: 0.9rem;
