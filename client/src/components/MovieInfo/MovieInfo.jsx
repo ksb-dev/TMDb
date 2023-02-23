@@ -281,6 +281,16 @@ const MovieInfo = ({ id, data, loading, error }) => {
           alt={data.title}
         />
 
+        <img
+          className="info__image__detail--image-1"
+          src={
+            data.backdrop_path === null
+              ? url
+              : APIs.img_path + data.backdrop_path
+          }
+          alt={data.title}
+        />
+
         <div
           className={
             "info__image__detail__rating " + getClassBg(data.vote_average)
