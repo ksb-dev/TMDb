@@ -35,7 +35,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import { BsCalendar2Date } from 'react-icons/bs'
 import { MdOutlineAccessTime } from 'react-icons/md'
 
-const MovieInfo = ({
+const TvInfo = ({
   id,
   data,
   loading,
@@ -106,20 +106,11 @@ const MovieInfo = ({
       >
         <div className='info__detail__one'>
           <div className='info__detail__one__title-tgline'>
-            <span className='title'>
-              {(data.title && data.title) || (data.name && data.name)}
-            </span>
+            <span className='title'>{data.name && data.name}</span>
             <span className='tagline'>{data.tagline && data.tagline}</span>
           </div>
 
           <div className='info__detail__one__date-time'>
-            {data.release_date && (
-              <span className='date'>
-                {/* <BsCalendar2Date size={'20px'} style={{ marginRight: '5px' }} /> */}
-                {moment(data.release_date).format('Do MMM, YYYY')}
-              </span>
-            )}
-
             {data.first_air_date && (
               <span className='date'>
                 {/* <BsCalendar2Date size={'20px'} style={{ marginRight: '5px' }} /> */}
@@ -158,7 +149,9 @@ const MovieInfo = ({
           <img
             loading='lazy'
             src={
-              data.poster_path === null ? url : APIs.img_path + data.poster_path
+              data.poster_path === null
+                ? APIs.no_image_url
+                : APIs.img_path + data.poster_path
             }
             alt={data.title}
           />
@@ -452,4 +445,4 @@ const MovieInfo = ({
   )
 }
 
-export default MovieInfo
+export default TvInfo

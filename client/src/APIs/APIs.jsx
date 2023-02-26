@@ -38,8 +38,17 @@ export const APIs = {
   }`,
 
   no_image_url:
-    "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png",
-  img_path: "https://image.tmdb.org/t/p/w1280",
+    'https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png',
+
+  img_path: 'https://image.tmdb.org/t/p/w1280',
+  img_path_w45: 'https://image.tmdb.org/t/p/w45',
+  img_path_w92: 'https://image.tmdb.org/t/p/w92',
+  img_path_w154: 'https://image.tmdb.org/t/p/w154',
+  img_path_w185: 'https://image.tmdb.org/t/p/w185',
+  img_path_w300: 'https://image.tmdb.org/t/p/w300',
+  img_path_w342: 'https://image.tmdb.org/t/p/w342',
+  img_path_h632: 'https://image.tmdb.org/t/p/h632',
+  img_path_original: 'https://image.tmdb.org/t/p/original',
 
   imdb_url: `https://www/imdb.com/title/`,
 
@@ -62,7 +71,7 @@ export const APIs = {
 
   // get_shows_url: `/url/api/v1/filmora/shows`,
   // add_show_url: `/url/api/v1/filmora/shows`,
-  // delete_show_url: `/url/api/v1/filmora/shows/`,
+  // delete_show_url: `/url/api/v1/filmora/shows/`
 
   login_url: `/api/v1/filmora/auth/login`,
   register_url: `/api/v1/filmora/auth/register`,
@@ -73,5 +82,5 @@ export const APIs = {
 
   get_shows_url: `/api/v1/filmora/shows`,
   add_show_url: `/api/v1/filmora/shows`,
-  delete_show_url: `/api/v1/filmora/shows/`,
-};
+  delete_show_url: `/api/v1/filmora/shows/`
+}

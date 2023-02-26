@@ -1,36 +1,79 @@
-import React from "react";
+import React from 'react'
 
 // data
-import { iconsData } from "../../data/icons";
+import { iconsData } from '../../data/icons'
 
 // context
-import { useMovieContext } from "../../context/context";
+import { useMovieContext } from '../../context/context'
 
 // components
-import Cast from "./Cast/Cast";
+import Cast from './Cast/Cast'
+import Backdrops from './Backdrops/Backdrops'
+import Videos from './Videos/Videos'
 
-const CastBackdropsVideo = ({ id, cast, castLoading, castError }) => {
-  const { mode } = useMovieContext();
+const CastBackdropsVideo = ({
+  id,
+  cast,
+  castLoading,
+  castError,
+  backdrops,
+  backdropsLoading,
+  backdropsError,
+  videos,
+  videosLoading,
+  videosError
+}) => {
+  const { mode } = useMovieContext()
 
   return (
     <div
       className={
-        "castBackdropVideo " +
-        (mode === true ? "lightBg1 darkColor1" : "darkBg2 lightColor1")
+        'castBackdropVideo ' +
+        (mode === true ? 'lightBg1 darkColor1' : 'darkBg2 lightColor1')
       }
     >
-      <div className="castBackdropVideo__cast">
-        <div className="castBackdropVideo__cast__title">
+      <div className='castBackdropVideo__cast'>
+        <div className='castBackdropVideo__cast__title'>
           Top Cast
-          <p className="length">
+          <p className='length'>
             <span>{cast && cast.length}</span>
           </p>
-          <span className="icon">{iconsData.forwardArrow}</span>
+          <span className='icon'>{iconsData.forwardArrow}</span>
         </div>
         <Cast cast={cast} castLoading={castLoading} castError={castError} />
       </div>
-    </div>
-  );
-};
 
-export default CastBackdropsVideo;
+      <div className='castBackdropVideo__backdrops'>
+        <div className='castBackdropVideo__backdrops__title'>
+          Backdrops
+          <p className='length'>
+            <span>{backdrops && backdrops.length}</span>
+          </p>
+          <span className='icon'>{iconsData.forwardArrow}</span>
+        </div>
+        <Backdrops
+          backdrops={backdrops}
+          backdropsLoading={backdropsLoading}
+          backdropsError={backdropsError}
+        />
+      </div>
+
+      <div className='castBackdropVideo__videos'>
+        <div className='castBackdropVideo__videos__title'>
+          Videos
+          <p className='length'>
+            <span>{videos && videos.length}</span>
+          </p>
+          <span className='icon'>{iconsData.forwardArrow}</span>
+        </div>
+        <Videos
+          videos={videos}
+          videosLoading={videosLoading}
+          videosError={videosError}
+        />
+      </div>
+    </div>
+  )
+}
+
+export default CastBackdropsVideo

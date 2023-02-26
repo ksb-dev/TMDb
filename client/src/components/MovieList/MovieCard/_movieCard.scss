@@ -3,6 +3,7 @@
   position: relative;
   user-select: none;
   border-radius: var(--border-radius-1);
+  //box-shadow: 0 1px 5px #000;
 
   &--image {
     position: relative;
@@ -97,7 +98,7 @@
   }
 }
 
-.card:hover .card--image img {
+.card:hover .card--image .img {
   transform: scale(1.2);
   transition: var(--transition);
 }

@@ -1,4 +1,6 @@
 import React, { useRef } from 'react'
+// import { LazyLoadImage } from 'react-lazy-load-image-component'
+// import 'react-lazy-load-image-component/src/effects/blur.css'
 
 // Hooks
 import { useGetClassByVote } from '../../hooks/useGetClassByVote'
@@ -29,7 +31,6 @@ import {
 } from 'react-icons/md'
 
 // other
-import Options from '../../other/Options/Options'
 import Switch from '../../other/Switch/Switch'
 
 const MovieList = () => {
@@ -119,6 +120,7 @@ const MovieList = () => {
           >
             <img
               className='list__wall--image'
+              loading='lazy'
               src={
                 sortedMovies[index].backdrop_path === null
                   ? APIs.no_image_url
@@ -126,6 +128,24 @@ const MovieList = () => {
               }
               alt={sortedMovies[index].title}
             />
+
+            {/* <LazyLoadImage
+              width={'100%'}
+              height={'100%'}
+              className='list__wall--image'
+              alt={sortedMovies[index].title}
+              effect='black-and-white'
+              placeholderSrc={
+                sortedMovies[index].backdrop_path === null
+                  ? APIs.no_image_url
+                  : APIs.img_path_w300 + sortedMovies[index].backdrop_path
+              }
+              src={
+                sortedMovies[index].backdrop_path === null
+                  ? APIs.no_image_url
+                  : APIs.img_path + sortedMovies[index].backdrop_path
+              }
+            /> */}
 
             <Link
               to={`/movie/${sortedMovies[index].id}`}
@@ -185,7 +205,7 @@ const MovieList = () => {
                       padding: '0.5rem',
                       borderRadius: '50%'
                     }}
-                    onClick={previousImage}
+                    onClick={() => previousImage(-1)}
                   />
                   <MdOutlineArrowForwardIos
                     cursor={'pointer'}
@@ -197,7 +217,7 @@ const MovieList = () => {
                       padding: '0.5rem',
                       borderRadius: '50%'
                     }}
-                    onClick={nextImage}
+                    onClick={() => nextImage(1)}
                   />
                 </>
               ) : (

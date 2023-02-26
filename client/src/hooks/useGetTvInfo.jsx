@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 
-export const useGetMovieInfo = () => {
+export const useGetTvInfo = () => {
   // Get movie info
   const getInfo = async (id, setData, setLoading, setError) => {
-    const type = 'movie'
+    const type = 'tv'
     //sessionStorage.getItem('movieState') === 'movie' ? 'movie' : 'tv'
 
     try {
@@ -28,7 +28,7 @@ export const useGetMovieInfo = () => {
 
   // Get cast
   const getCast = async (id, setCast, setCastLoading, setCastError) => {
-    const type = 'movie'
+    const type = 'tv'
     //sessionStorage.getItem('movieState') === 'movie' ? 'movie' : 'tv'
 
     try {
@@ -61,7 +61,7 @@ export const useGetMovieInfo = () => {
     setBackdropsLoading,
     setBackdropsError
   ) => {
-    const type = 'movie'
+    const type = 'tv'
     //sessionStorage.getItem('movieState') === 'movie' ? 'movie' : 'tv'
 
     const url = `
@@ -95,7 +95,8 @@ https://api.themoviedb.org/3/${type}/${id}/images?api_key=${
     setPlayerLoading,
     setPlayerError
   ) => {
-    const type = 'movie'
+    const type = 'tv'
+    //sessionStorage.getItem('movieState') === 'movie' ? 'movie' : 'tv'
 
     try {
       setPlayerLoading(true)
@@ -135,7 +136,7 @@ https://api.themoviedb.org/3/${type}/${id}/images?api_key=${
     setReviewsLoading,
     setReviewsError
   ) => {
-    const type = 'movie'
+    const type = 'tv'
     //sessionStorage.getItem('movieState') === 'movie' ? 'movie' : 'tv'
 
     const url = `https://api.themoviedb.org/3/${type}/${id}/reviews?api_key=${
@@ -162,7 +163,7 @@ https://api.themoviedb.org/3/${type}/${id}/images?api_key=${
 
   // Get videos
   const getVideos = async (id, setVideos, setVideosLoading, setVideosError) => {
-    const type = 'movie'
+    const type = 'tv'
     //sessionStorage.getItem('movieState') === 'movie' ? 'movie' : 'tv'
 
     const url = `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${
@@ -217,7 +218,7 @@ https://api.themoviedb.org/3/${type}/${id}/images?api_key=${
 
   // Get movie crew
   const getMovieCrew = async (id, setCrew, setCrewLoading, setCrewError) => {
-    const type = 'movie'
+    const type = 'tv'
     //sessionStorage.getItem('movieState') === 'movie' ? 'movie' : 'tv'
 
     const url = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${
