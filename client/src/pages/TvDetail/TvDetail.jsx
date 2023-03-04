@@ -5,7 +5,14 @@ import { useParams } from 'react-router-dom'
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { setSavedMovies } from '../../redux/services/movies/setSavedMovies'
+import {
+  setSavedMovies,
+  setMovieUserNull
+} from '../../redux/services/movies/setSavedMovies'
+import {
+  setSavedShows,
+  setTvUserNull
+} from '../../redux/services/shows/setSavedShows'
 
 // Context
 import { useMovieContext } from '../../context/context'
@@ -22,17 +29,31 @@ import SearchModal from '../../components/SearchModal/SearchModal'
 import TvInfo from '../../components/TvInfo/TvInfo'
 import CastBackdropsVideo from '../../components/CastBackdropsVideo/CastBackdropsVideo'
 import Reviews from '../../components/Reviews/Reviews'
-//import YouTubePlayer from '../../Components/MovieDetail/YoutubePlayer/YouTubePlayer'
-//import CastBackdropVideo from '../../Components/CastBackdropVideo/CastBackdropVideo'
-//import Reviews from '../../Components/Reviews/Reviews'
-//import ImageViewer from '../../Components/ImageViewer/ImageViewer'
+import PlayerOne from '../../components/PlayerOne/PlayerOne'
+import ImageViewer from '../../components/ImageViewer/ImageViewer'
 
 const TvDetail = () => {
-  const { mode, movieState } = useMovieContext()
+  const {
+    mode,
+    movieState,
+    movieIdState,
+    backdrops,
+    setBackdrops,
+    backdropsLoading,
+    setBackdropsLoading,
+    backdropsError,
+    setBackdropsError
+  } = useMovieContext()
   const dispatch = useDispatch()
 
-  const { getTrailer, getInfo, getCast, getBackdrops, getVideos, getReviews } =
-    useGetTvInfo()
+  const {
+    getTvTrailer,
+    getTvInfo,
+    getTvCast,
+    getTvBackdrops,
+    getTvVideos,
+    getTvReviews
+  } = useGetTvInfo()
 
   // Movie info
   const { id } = useParams()
@@ -44,11 +65,6 @@ const TvDetail = () => {
   const [cast, setCast] = useState([])
   const [castLoading, setCastLoading] = useState(true)
   const [castError, setCastError] = useState('')
-
-  // Backdrop
-  const [backdrops, setBackdrops] = useState([])
-  const [backdropsLoading, setBackdropsLoading] = useState(true)
-  const [backdropsError, setBackdropsError] = useState('')
 
   // Videos
   const [videos, setVideos] = useState([])
@@ -62,8 +78,16 @@ const TvDetail = () => {
 
   // Youtube
   const [trailerUrl, setTrailerUrl] = useState('')
+  const [trailerLoading, setTrailerLoading] = useState(true)
+  const [trailerError, setTrailerError] = useState('')
+
+  const [playerUrl, setPlayerUrl] = useState('')
   const [playerLoading, setPlayerLoading] = useState(true)
   const [playerError, setPlayerError] = useState('')
+  const playerTwoRef = useRef(null)
+  const playerTwoInnerRef = useRef(null)
+
+  const [type, setType] = useState('tv')
 
   useEffect(() => {
     window.scroll({
@@ -76,6 +100,10 @@ const TvDetail = () => {
 
     if (savedToken !== '' || savedToken !== undefined || savedToken !== null) {
       dispatch(setSavedMovies())
+      dispatch(setSavedShows())
+    } else {
+      dispatch(setMovieUserNull())
+      dispatch(setTvUserNull())
     }
   }, [dispatch, movieState])
 
@@ -87,34 +115,34 @@ const TvDetail = () => {
     })
 
     // 1. Get Trailer
-    getTrailer(id, setTrailerUrl, setPlayerLoading, setPlayerError)
+    getTvTrailer(id, setTrailerUrl, setTrailerLoading, setTrailerError)
 
     // 2. Get info
-    getInfo(id, setData, setLoading, setError)
+    getTvInfo(id, setData, setLoading, setError)
 
     //3. Get cast
     setTimeout(() => {
-      getCast(id, setCast, setCastLoading, setCastError)
+      getTvCast(id, setCast, setCastLoading, setCastError)
     }, 250)
 
     //4. Get backdrops
     setTimeout(() => {
-      getBackdrops(id, setBackdrops, setBackdropsLoading, setBackdropsError)
+      getTvBackdrops(id, setBackdrops, setBackdropsLoading, setBackdropsError)
     }, 500)
 
     //5. Get videos
     setTimeout(() => {
-      getVideos(id, setVideos, setVideosLoading, setVideosError)
+      getTvVideos(id, setVideos, setVideosLoading, setVideosError)
     }, 750)
 
     //6. Get reviews
     setTimeout(() => {
-      getReviews(id, setReviews, setReviewsLoading, setReviewsError)
+      getTvReviews(id, setReviews, setReviewsLoading, setReviewsError)
     }, 1000)
-  }, [id])
+  }, [movieIdState])
 
   return (
-    <div className={'movie-detail ' + (mode === true ? 'lightBg1' : 'darkBg2')}>
+    <div className={'tv-detail ' + (mode === true ? 'lightBg1' : 'darkBg2')}>
       <Header />
       <SmallHeader />
       <Menu />
@@ -126,14 +154,26 @@ const TvDetail = () => {
         loading={loading}
         error={error}
         trailerUrl={trailerUrl}
+        trailerLoading={trailerLoading}
+        trailerError={trailerError}
+        playerRef={playerTwoRef}
+        playerInnerRef={playerTwoInnerRef}
+        setPlayerUrl={setPlayerUrl}
+        setPlayerLoading={setPlayerLoading}
+        setPlayerError={setPlayerError}
+      />
+
+      <PlayerOne
+        playerRef={playerTwoRef}
+        playerInnerRef={playerTwoInnerRef}
+        playerUrl={playerUrl}
         playerLoading={playerLoading}
-        playerError={playerError}
+        setPlayerUrl={setPlayerUrl}
       />
 
       {!loading && !error && (
         <>
           <CastBackdropsVideo
-            id={id}
             cast={cast}
             castError={castError}
             castLoading={castLoading}
@@ -146,6 +186,11 @@ const TvDetail = () => {
             reviews={reviews}
             reviewsError={reviewsError}
             reviewsLoading={reviewsLoading}
+            setPlayerUrl={setPlayerUrl}
+            setPlayerLoading={setPlayerLoading}
+            setPlayerError={setPlayerError}
+            playerRef={playerTwoRef}
+            playerInnerRef={playerTwoInnerRef}
           />
 
           <Reviews
@@ -153,54 +198,8 @@ const TvDetail = () => {
             reviewsLoading={reviewsLoading}
             reviewsError={reviewsError}
           />
-        </>
-      )}
 
-      {/* <MovieDetail
-        data={data}
-        loading={loading}
-        error={error}
-        playerRef={playerRef}
-        playerInnerRef={playerInnerRef}
-        id={id}
-        trailerUrl={trailerUrl}
-        setTrailerUrl={setTrailerUrl}
-        setPlayerLoading={setPlayerLoading}
-        setPlayerError={setPlayerError}
-      />
-
-      <YouTubePlayer
-        playerRef={playerRef}
-        playerInnerRef={playerInnerRef}
-        trailerUrl={trailerUrl}
-        setTrailerUrl={setTrailerUrl}
-        playerLoading={playerLoading}
-        playerError={playerError}
-      /> */}
-
-      {!loading && !error && (
-        <>
-          {/* <CastBackdropVideo
-            id={id}
-            cast={cast}
-            castError={castError}
-            castLoading={castLoading}
-            setCast={setCast}
-            setCastLoading={setCastLoading}
-            setCastError={setCastError}
-            reviews={reviews}
-            reviewsError={reviewsError}
-            reviewsLoading={reviewsLoading}
-          />
-
-          <Reviews
-            id={id}
-            reviews={reviews}
-            reviewsError={reviewsError}
-            reviewsLoading={reviewsLoading}
-          />
-
-          <ImageViewer /> */}
+          <ImageViewer />
         </>
       )}
     </div>

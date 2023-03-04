@@ -33,20 +33,20 @@
 
   --whiteAlpha-1: rgba(255, 255, 255, 0.9);
   --whiteAlpha-2: rgba(220, 220, 220, 0.9);
-  --whiteAlpha-3: rgba(255, 255, 255, 0.7);
-  --whiteAlpha-4: rgba(220, 220, 220, 0.7);
+  --whiteAlpha-3: rgba(255, 255, 255, 0.5);
+  --whiteAlpha-4: rgba(220, 220, 220, 0.5);
   --whiteAlpha-5: rgba(255, 255, 255, 0.9);
   --whiteAlpha-6: rgba(220, 220, 220, 0.9);
 
-  --darkAplha-1: rgba(51, 51, 51, 0.5);
+  --darkAplha-1: rgba(51, 51, 51, 0.9);
   --darkAplha-1: rgba(34, 34, 34, 0.9);
   --darkAlpha-2: rgba(34, 34, 34, 0.9);
-  --darkAplha-3: rgba(51, 51, 51, 0.7);
-  --darkAlpha-4: rgba(34, 34, 34, 0.7);
+  --darkAplha-3: rgba(51, 51, 51, 0.5);
+  --darkAlpha-4: rgba(34, 34, 34, 0.75);
   --darkAplha-5: rgba(34, 34, 34, 0.9);
   --darkAlpha-6: rgba(34, 34, 34, 0.9);
 
-  --border-radius-1: 0px;
+  --border-radius-1: 3px;
   --border-radius-2: 10px;
   --border-radius-2: 15px;
 
@@ -145,7 +145,7 @@
 }
 
 .darkAlpha4 {
-  background: var(--darkAplha-4);
+  background: var(--darkAlpha-4);
 }
 
 .darkAlpha5 {
@@ -187,6 +187,22 @@
     to right top,
     rgb(51, 51, 51, 1) 20%,
     rgba(34, 34, 34, 0)
+  );
+}
+
+.lightCoverGradient {
+  background: linear-gradient(
+    to right top,
+    #fff 20%,
+    rgba(255, 255, 255, 0.75)
+  );
+}
+
+.darkCoverGradient {
+  background: linear-gradient(
+    to right top,
+    rgb(51, 51, 51, 1) 20%,
+    rgb(51, 51, 51, 0.75)
   );
 }
 
@@ -303,6 +319,7 @@ body {
 @import '../components/TvList/tvList';
 @import '../components/TvList/TvCard/tvCard';
 @import '../components/TvList/Pagination/pagination';
+
 @import '../components/Menu/menu';
 
 @import '../components/Search/search';
@@ -310,6 +327,7 @@ body {
 @import '../components/SearchModal/searchModal';
 
 @import '../components/MovieInfo/movieInfo';
+@import '../components/TvInfo/tvInfo';
 @import '../components/CastBackdropsVideo/castBackdropsVideo';
 @import '../components/CastBackdropsVideo/Cast/cast';
 @import '../components/CastBackdropsVideo/Cast/Actor/actor';
@@ -321,6 +339,10 @@ body {
 @import '../components/Reviews/reviews';
 @import '../components/Reviews/Review/review';
 
+@import '../components/ImageViewer/imageViewer';
+
+@import '../components/PlayerOne/playerOne';
+
 // pages
 @import '../pages/Home/home';
 @import '../pages/Search/search';
@@ -328,6 +350,8 @@ body {
 @import '../pages/Register/register';
 @import '../Pages/Watchlist/watchlist';
 @import '../pages/MovieDetail/movieDetail';
+@import '../pages/TvDetail/tvDetail';
+@import '../pages/ActorDetail/actorDetail';
 
 // other
 @import '../other/Loading/loading';
@@ -338,6 +362,7 @@ body {
 @import '../other/Options/options';
 @import '../other/Switch/switch';
 @import '../other/VideoPlayer/videoPlayer';
+@import '../other/Iframe/iframe';
 
 body::-webkit-scrollbar {
   width: 8px; /* width of the entire scrollbar */

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import moment from 'moment'
-// import { LazyLoadImage } from 'react-lazy-load-image-component'
-// import 'react-lazy-load-image-component/src/effects/blur.css'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 
 // react router dom
 import { useNavigate } from 'react-router-dom'
@@ -15,6 +15,8 @@ import { useMovieContext } from '../../context/context'
 // hooks
 import { useWatchlistOperations } from '../../hooks/useWatchlistOperations'
 import { useGetClassByVote } from '../../hooks/useGetClassByVote'
+import { useShowHide } from '../../hooks/useShowHide'
+import { useGetTvInfo } from '../../hooks/useGetTvInfo'
 
 // data
 import { genreArray } from '../../data/genreData'
@@ -27,13 +29,7 @@ import { iconsData } from '../../data/icons'
 import Loading from '../../other/Loading/Loading'
 import Error from '../../other/Error/Error'
 import VideoPlayer from '../../other/VideoPlayer/VideoPlayer'
-
-// Circular progress bar
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
-
-// Recat Icons
-import { BsCalendar2Date } from 'react-icons/bs'
-import { MdOutlineAccessTime } from 'react-icons/md'
+import CircularProgressBar from '../../other/CircularProgressBar/CircularProgressBar'
 
 const TvInfo = ({
   id,
@@ -41,8 +37,13 @@ const TvInfo = ({
   loading,
   error,
   trailerUrl,
-  playerLoading,
-  playerError
+  trailerLoading,
+  trailerError,
+  playerRef,
+  playerInnerRef,
+  setPlayerUrl,
+  setPlayerLoading,
+  setPlayerError
 }) => {
   const navigate = useNavigate()
 
@@ -50,16 +51,18 @@ const TvInfo = ({
   const { mode } = useMovieContext()
 
   // hooks
-  const { addMovie, deleteMovie } = useWatchlistOperations()
+  const { addShow, deleteShow } = useWatchlistOperations()
   const { getClassBg } = useGetClassByVote()
+  const { showPlayer } = useShowHide()
+  const { getTvTrailer786px } = useGetTvInfo()
 
   // states
   const [genres, setGenres] = useState(new Set())
   const [genre_ids, setGenre_ids] = useState(new Set())
 
   // redux state
-  const savedMovies = useSelector(state => state.savedMovies.savedMovies)
-  const user = useSelector(state => state.savedMovies.user)
+  const savedShows = useSelector(state => state.savedShows.savedShows)
+  const user = useSelector(state => state.savedShows.user)
 
   // Get & store genre__ids
   useEffect(() => {
@@ -94,169 +97,152 @@ const TvInfo = ({
     )
   }
 
+  const {
+    name,
+    vote_average,
+    poster_path,
+    backdrop_path,
+    first_air_date,
+    overview
+  } = data
+
+  const playTrailer = () => {
+    showPlayer(playerRef, playerInnerRef)
+    getTvTrailer786px(id, setPlayerUrl, setPlayerLoading, setPlayerError)
+  }
+
+  const handleAddTv = () => {
+    addShow(
+      id,
+      name,
+      poster_path,
+      backdrop_path,
+      first_air_date,
+      vote_average,
+      genre_ids,
+      overview
+    )
+  }
+
+  const handleDeleteTv = () => {
+    deleteShow(id)
+  }
+
   return (
     <div
       className={
-        'info ' +
+        'tv__info ' +
         (mode === true ? 'lightBg1 darkColor1' : 'darkBg2 lightColor1')
       }
     >
       <div
-        className={'info__detail ' + (mode === true ? 'lightBg1' : 'darkBg2')}
+        className={
+          'tv__info__detail ' + (mode === true ? 'lightBg1' : 'darkBg2')
+        }
       >
-        <div className='info__detail__one'>
-          <div className='info__detail__one__title-tgline'>
-            <span className='title'>{data.name && data.name}</span>
-            <span className='tagline'>{data.tagline && data.tagline}</span>
-          </div>
+        <div className='tv__info__detail__title-tagline'>
+          <span className='title'>{name && name}</span>
+        </div>
 
-          <div className='info__detail__one__date-time'>
-            {data.first_air_date && (
-              <span className='date'>
-                {/* <BsCalendar2Date size={'20px'} style={{ marginRight: '5px' }} /> */}
-                {moment(data.first_air_date).format('Do MMM, YYYY')}
-              </span>
-            )}
-
-            <span className='gap'>-</span>
-
-            {data.runtime && (
-              <span className='time'>
-                {/* <MdOutlineAccessTime
-                  size={'20px'}
-                  style={{ marginRight: '5px' }}
-                /> */}
-                <>
-                  {`${Math.floor(data.runtime / 60)}` > 0 &&
-                    `${Math.floor(data.runtime / 60)}h`}
-                  {` ${data.runtime % 60}`}m
-                </>
-              </span>
-            )}
-          </div>
+        <div className='tv__info__detail__date-time'>
+          {first_air_date && (
+            <span className='date'>
+              {moment(first_air_date).format('Do MMM, YYYY')}
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Image Video */}
-
-      <div className='info__image__video'>
+      {/* ---------- Image Video ---------- */}
+      <div className='tv__info__image__video'>
         <div
           className={
-            'info__image__video--image ' +
+            'tv__info__image__video--image-1 ' +
             (mode === true ? 'lightBg2' : 'darkBg1')
           }
         >
           <img
-            loading='lazy'
+            className='img'
             src={
-              data.poster_path === null
+              poster_path === null
                 ? APIs.no_image_url
-                : APIs.img_path + data.poster_path
+                : APIs.img_path + poster_path
             }
-            alt={data.title}
+            alt={name}
+            load='lazy'
           />
 
           {/* <LazyLoadImage
-          //width={'100%'}
-          //height={'100%'}
-          className='info__image__video--image'
-          alt='image'
-          effect='blur'
-          placeholderSrc={
-            data.poster_path === null
-              ? APIs.no_image_url
-              : APIs.img_path_w342 + data.poster_path
-          }
-          src={
-            data.poster_path === null
-              ? APIs.no_image_url
-              : APIs.img_path_w342 + data.poster_path
-          }
-        /> */}
+            className='img'
+            alt='image'
+            effect='black-and-white'
+            placeholderSrc={
+              poster_path === null
+                ? APIs.no_image_url
+                : APIs.img_path_w342 + poster_path
+            }
+            src={
+              poster_path === null
+                ? APIs.no_image_url
+                : APIs.img_path_w342 + poster_path
+            }
+          /> */}
         </div>
 
         <div
           className={
-            'info__image__video__rating ' + getClassBg(data.vote_average)
+            'tv__info__image__video__rating ' + getClassBg(vote_average)
           }
         >
-          <CircularProgressbar
-            value={data.vote_average * 10}
-            strokeWidth={5}
-            styles={buildStyles({
-              pathColor: '#fff'
-            })}
-          />
-          <span>{Number(String(data.vote_average).substring(0, 3))}</span>
+          <CircularProgressBar vote_average={vote_average} />
         </div>
 
-        {user && savedMovies && savedMovies.length === 0 && (
+        {/* ADD-BUTTON */}
+        {user && savedShows && savedShows.length === 0 && (
           <p
-            className='info__image__video__add__btn'
-            onClick={() =>
-              addMovie(
-                id,
-                data.title,
-                data.poster_path,
-                data.backdrop_path,
-                data.release_date,
-                data.vote_average,
-                genre_ids,
-                data.overview
-              )
-            }
+            className='tv__info__image__video__add__btn'
+            onClick={() => handleAddTv()}
           >
-            <span className='info__image__video__add__btn-icon'>
-              {iconsData.star}
+            <span className='tv__info__image__video__add__btn-icon'>
+              {iconsData.addBookmark1}
             </span>
           </p>
         )}
 
         {/* ADD-BUTTON */}
         {user &&
-          savedMovies &&
-          savedMovies.length > 0 &&
-          savedMovies.every((item, index) => item.id !== Number(id)) && (
+          savedShows &&
+          savedShows.length > 0 &&
+          savedShows.every(item => item.id !== Number(id)) && (
             <p
               key={id}
-              className='info__image__video__add__btn'
-              onClick={() =>
-                addMovie(
-                  id,
-                  data.title,
-                  data.poster_path,
-                  data.backdrop_path,
-                  data.release_date,
-                  data.vote_average,
-                  genre_ids,
-                  data.overview
-                )
-              }
+              className='tv__info__image__video__add__btn'
+              onClick={() => handleAddTv()}
             >
-              <span className='info__image__video__add__btn-icon'>
-                {iconsData.star}
+              <span className='tv__info__image__video__add__btn-icon'>
+                {iconsData.addBookmark1}
               </span>
             </p>
           )}
 
         {/* DELETE-BUTTON */}
         {user &&
-          savedMovies &&
-          savedMovies.length > 0 &&
-          savedMovies.map((item, index) => {
+          savedShows &&
+          savedShows.length > 0 &&
+          savedShows.map((item, index) => {
             if (item.id === Number(id)) {
               return (
                 <p
                   key={index}
-                  className='info__image__video__delete__btn'
-                  onClick={() => deleteMovie(id)}
+                  className='tv__info__image__video__delete__btn'
+                  onClick={() => handleDeleteTv()}
                   style={{ background: 'gold' }}
                 >
                   <span
-                    className='info__image__video__delete__btn-icon'
+                    className='tv__info__image__video__delete__btn-icon'
                     style={{ color: '#000' }}
                   >
-                    {iconsData.star}
+                    {iconsData.addedBookmark1}
                   </span>
                 </p>
               )
@@ -266,142 +252,191 @@ const TvInfo = ({
         {/* ADD-BUTTON (without user) */}
         {!user && (
           <p
-            className='info__image__video__btn '
+            className='tv__info__image__video__btn '
             onClick={() => navigate('/login')}
           >
-            <span className='info__image__video__btn-icon'>
-              {iconsData.star}
+            <span className='tv__info__image__video__btn-icon'>
+              {iconsData.addBookmark1}
             </span>
           </p>
         )}
         <div
           className={
-            'info__image__video__player ' +
+            'tv__info__image__video__player ' +
             (mode === true ? 'lightBg2' : 'darkBg1')
           }
         >
-          {playerLoading && <Loading />}
-          {playerError && <Error />}
-          {!playerLoading && !playerError && (
+          {trailerLoading && <Loading />}
+          {trailerError && <Error msg={'No trailer found'} />}
+          {!trailerLoading && !trailerError && trailerUrl === '' && (
+            <Error msg={'No trailer found'} />
+          )}
+          {!trailerLoading && !trailerError && trailerUrl !== '' && (
             <VideoPlayer embedId={trailerUrl && trailerUrl} />
           )}
         </div>
       </div>
 
-      {/* Image Detail */}
-      <div className='info__image__detail'>
+      {/* ---------- Image Detail ----------*/}
+      <div className='tv__info__image__detail'>
         <div
           className={
-            'info__image__detail--image ' +
+            'tv__info__image__detail--image-2 ' +
             (mode === true ? 'lightBg2' : 'darkBg1')
           }
         >
           <img
+            className='img'
             src={
-              data.poster_path === null ? url : APIs.img_path + data.poster_path
-            }
-            alt={data.title}
-          />
-        </div>
-
-        <div
-          className={
-            'info__image__detail--image-1 ' +
-            (mode === true ? 'lightBg2' : 'darkBg1')
-          }
-        >
-          <img
-            src={
-              data.backdrop_path === null
+              poster_path === null
                 ? APIs.no_image_url
-                : APIs.img_path + data.backdrop_path
+                : APIs.img_path + poster_path
             }
-            alt={data.title}
+            alt={name}
+            load='lazy'
           />
+          {/* <LazyLoadImage
+            className='img'
+            alt='image'
+            effect='black-and-white'
+            placeholderSrc={
+              poster_path === null
+                ? APIs.no_image_url
+                : APIs.img_path_w342 + poster_path
+            }
+            src={
+              poster_path === null
+                ? APIs.no_image_url
+                : APIs.img_path_w342 + poster_path
+            } 
+          />*/}
         </div>
 
         <div
           className={
-            'info__image__detail__rating ' + getClassBg(data.vote_average)
+            'tv__info__image__detail--image-3 ' +
+            (mode === true ? 'lightBg2' : 'darkBg1')
           }
         >
-          <CircularProgressbar
-            value={data.vote_average * 10}
-            strokeWidth={5}
-            styles={buildStyles({
-              pathColor: '#fff'
-            })}
+          <img
+            className='img'
+            src={
+              poster_path === null
+                ? APIs.no_image_url
+                : APIs.img_path + backdrop_path
+            }
+            alt={name}
+            load='lazy'
           />
-          <span>{Number(String(data.vote_average).substring(0, 3))}</span>
+          {/* <LazyLoadImage
+            width={'100%'}
+            height={'100%'}
+            className='img'
+            alt='image'
+            effect='black-and-white'
+            placeholderSrc={
+              backdrop_path === null
+                ? APIs.no_image_url
+                : APIs.img_path + backdrop_path
+            }
+            src={
+              backdrop_path === null
+                ? APIs.no_image_url
+                : APIs.img_path + backdrop_path
+            }
+          /> */}
         </div>
 
-        {user && savedMovies && savedMovies.length === 0 && (
-          <p
-            className='info__image__detail__add__btn'
-            onClick={() =>
-              addMovie(
-                id,
-                data.title,
-                data.poster_path,
-                data.backdrop_path,
-                data.release_date,
-                data.vote_average,
-                genre_ids,
-                data.overview
-              )
+        <div
+          className={
+            'movie__info__image__detail--image-4 ' +
+            (mode === true ? 'lightBg2' : 'darkBg1')
+          }
+        >
+          <img
+            className='img'
+            src={
+              poster_path === null
+                ? APIs.no_image_url
+                : APIs.img_path_w780 + backdrop_path
             }
+            alt={name}
+            load='lazy'
+          />
+
+          {/* <LazyLoadImage
+            width={'100%'}
+            height={'100%'}
+            className='img'
+            alt='image'
+            effect='black-and-white'
+            placeholderSrc={
+              backdrop_path === null
+                ? APIs.no_image_url
+                : APIs.img_path + backdrop_path
+            }
+            src={
+              backdrop_path === null
+                ? APIs.no_image_url
+                : APIs.img_path + backdrop_path
+            }
+          /> */}
+        </div>
+
+        <div
+          className={
+            'tv__info__image__detail__rating ' + getClassBg(vote_average)
+          }
+        >
+          <CircularProgressBar vote_average={vote_average} />
+        </div>
+
+        {/* ADD-BUTTON */}
+        {user && savedShows && savedShows.length === 0 && (
+          <p
+            className='tv__info__image__detail__add__btn'
+            onClick={() => handleAddTv()}
           >
-            <span className='info__image__detail__add__btn-icon'>
-              {iconsData.star}
+            <span className='tv__info__image__detail__add__btn-icon'>
+              {iconsData.addBookmark1}
             </span>
           </p>
         )}
 
         {/* ADD-BUTTON */}
         {user &&
-          savedMovies &&
-          savedMovies.length > 0 &&
-          savedMovies.every((item, index) => item.id !== Number(id)) && (
+          savedShows &&
+          savedShows.length > 0 &&
+          savedShows.every(item => item.id !== Number(id)) && (
             <p
               key={id}
-              className='info__image__detail__add__btn'
-              onClick={() =>
-                addMovie(
-                  id,
-                  data.title,
-                  data.poster_path,
-                  data.backdrop_path,
-                  data.release_date,
-                  data.vote_average,
-                  genre_ids,
-                  data.overview
-                )
-              }
+              className='tv__info__image__detail__add__btn'
+              onClick={() => handleAddTv()}
             >
-              <span className='info__image__detail__add__btn-icon'>
-                {iconsData.star}
+              <span className='tv__info__image__detail__add__btn-icon'>
+                {iconsData.addBookmark1}
               </span>
             </p>
           )}
 
         {/* DELETE-BUTTON */}
         {user &&
-          savedMovies &&
-          savedMovies.length > 0 &&
-          savedMovies.map((item, index) => {
+          savedShows &&
+          savedShows.length > 0 &&
+          savedShows.map((item, index) => {
             if (item.id === Number(id)) {
               return (
                 <p
                   key={index}
-                  className='info__image__detail__delete__btn'
-                  onClick={() => deleteMovie(id)}
+                  className='tv__info__image__detail__delete__btn'
+                  onClick={() => handleDeleteTv()}
                   style={{ background: 'gold' }}
                 >
                   <span
-                    className='info__image__detail__delete__btn-icon'
+                    className='tv__info__image__detail__delete__btn-icon'
                     style={{ color: '#000' }}
                   >
-                    {iconsData.star}
+                    {iconsData.addedBookmark1}
                   </span>
                 </p>
               )
@@ -411,17 +446,18 @@ const TvInfo = ({
         {/* ADD-BUTTON (without user) */}
         {!user && (
           <p
-            className='info__image__detail__btn '
+            className='tv__info__image__detail__btn '
             onClick={() => navigate('/login')}
           >
-            <span className='info__image__detail__btn-icon'>
-              {iconsData.star}
+            <span className='tv__info__image__detail__btn-icon'>
+              {iconsData.addBookmark1}
             </span>
           </p>
         )}
 
-        <div className='info__image__detail__inner'>
-          <div className='info__image__detail__inner__genres'>
+        {/* Genres */}
+        <div className='tv__info__image__detail__inner'>
+          <div className='tv__info__image__detail__inner__genres'>
             {genres &&
               Array.from(genres).length > 0 &&
               Array.from(genres).map((genre, index) => (
@@ -436,9 +472,17 @@ const TvInfo = ({
               ))}
           </div>
 
-          <div className='info__image__detail__inner__overview'>
-            <span>{data.overview && data.overview}</span>
+          <div className='tv__info__image__detail__inner__overview'>
+            <span>{overview && overview}</span>
           </div>
+
+          <span
+            className='movie__info__image__detail__inner__playBtn'
+            onClick={() => playTrailer()}
+          >
+            {iconsData.play}
+            Watch Trailer
+          </span>
         </div>
       </div>
     </div>

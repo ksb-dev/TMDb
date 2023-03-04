@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
-// import { LazyLoadImage } from 'react-lazy-load-image-component'
-// import 'react-lazy-load-image-component/src/effects/blur.css'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 
 // Hooks
 import { useGetClassByVote } from '../../hooks/useGetClassByVote'
@@ -43,7 +43,7 @@ const TvList = () => {
 
   // const [stop, setStop] = useState(0)
   // const timeoutRef = useRef(null)
-  const btnRef = useRef(null)
+  const buttonsRef = useRef(null)
 
   const previousImage = () => {
     index < 1
@@ -118,25 +118,38 @@ const TvList = () => {
         <>
           <div
             className={'list__wall ' + (mode === true ? 'lightBg2' : 'darkBg2')}
-            onMouseOver={() => {
-              //clearTimeout(timeoutRef.current)
-              //setStop(1)
-              //btnRef.current.style.zIndex = '1'
-            }}
-            onMouseLeave={() => {
-              //setStop(0)
-              //btnRef.current.style.zIndex = '-1'
-            }}
           >
             <img
-              className='list__wall--image'
-              loading='lazy'
+              className='list__wall--image-1'
               src={
                 sortedShows[index].backdrop_path === null
                   ? APIs.no_image_url
                   : APIs.img_path + sortedShows[index].backdrop_path
               }
               alt={sortedShows[index].name}
+              load='lazy'
+            />
+
+            <img
+              className='list__wall--image-2'
+              src={
+                sortedShows[index].backdrop_path === null
+                  ? APIs.no_image_url
+                  : APIs.img_path_w780 + sortedShows[index].backdrop_path
+              }
+              alt={sortedShows[index].name}
+              load='lazy'
+            />
+
+            <img
+              className='list__wall--image-3'
+              src={
+                sortedShows[index].backdrop_path === null
+                  ? APIs.no_image_url
+                  : APIs.img_path_w780 + sortedShows[index].backdrop_path
+              }
+              alt={sortedShows[index].name}
+              load='lazy'
             />
 
             {/* <LazyLoadImage
@@ -154,8 +167,8 @@ const TvList = () => {
                 sortedShows[index].backdrop_path === null
                   ? APIs.no_image_url
                   : APIs.img_path + sortedShows[index].backdrop_path
-              }
-            /> */}
+              } 
+            />*/}
 
             <Link
               to={`/tv/${sortedShows[index].id}`}
@@ -165,15 +178,15 @@ const TvList = () => {
                   ? 'lightGradient1 darkColor2'
                   : 'darkGradient1 lightColor1')
               }
-              // onMouseOver={() => {
-              //   //clearTimeout(timeoutRef.current)
-              //   //setStop(1)
-              //   btnRef.current.style.zIndex = '1'
-              // }}
-              // onMouseLeave={() => {
-              //   //setStop(0)
-              //   btnRef.current.style.zIndex = '-1'
-              // }}
+              onMouseOver={() => {
+                //clearTimeout(timeoutRef.current)
+                //setStop(1)
+                buttonsRef.current.style.zIndex = '1'
+              }}
+              onMouseLeave={() => {
+                //setStop(0)
+                buttonsRef.current.style.zIndex = '-1'
+              }}
             >
               <p className={'list__wall__cover--number '}>
                 {index + 1 + ' / ' + sortedShows.length}
@@ -211,34 +224,44 @@ const TvList = () => {
               </div>
             </Link>
 
-            <div ref={btnRef} className='list__wall__buttons'>
-              {/* ref={btnRef} */}
+            <div
+              ref={buttonsRef}
+              className='list__wall__buttons'
+              onMouseOver={() => {
+                buttonsRef.current.style.zIndex = '1'
+              }}
+            >
               {sortedShows.length > 1 ? (
                 <>
-                  <MdOutlineArrowBackIosNew
-                    cursor={'pointer'}
-                    size={'20px'}
-                    style={{
-                      marginLeft: '1rem',
-                      color: '#fff',
-                      background: 'rgba(0, 0, 0, 0.8)',
-                      padding: '0.5rem',
-                      borderRadius: '50%'
-                    }}
-                    onClick={previousImage}
-                  />
-                  <MdOutlineArrowForwardIos
-                    cursor={'pointer'}
-                    size={'20px'}
-                    style={{
-                      marginRight: '1rem',
-                      color: '#fff',
-                      background: 'rgba(0, 0, 0, 0.8)',
-                      padding: '0.5rem',
-                      borderRadius: '50%'
-                    }}
-                    onClick={nextImage}
-                  />
+                  <span>
+                    <MdOutlineArrowBackIosNew
+                      cursor={'pointer'}
+                      size={'20px'}
+                      style={{
+                        marginLeft: '1rem',
+                        color: '#fff',
+                        background: 'rgba(0, 0, 0, 0.8)',
+                        padding: '0.5rem',
+                        borderRadius: '50%'
+                      }}
+                      onClick={previousImage}
+                    />
+                  </span>
+
+                  <span>
+                    <MdOutlineArrowForwardIos
+                      cursor={'pointer'}
+                      size={'20px'}
+                      style={{
+                        marginRight: '1rem',
+                        color: '#fff',
+                        background: 'rgba(0, 0, 0, 0.8)',
+                        padding: '0.5rem',
+                        borderRadius: '50%'
+                      }}
+                      onClick={nextImage}
+                    />
+                  </span>
                 </>
               ) : (
                 <></>

@@ -49,28 +49,28 @@ const SearchResults = ({ results }) => {
 
   const hideModal = () => {
     setMovieIdState(!movieIdState)
-    setSearchQuery("");
-    searchModalRef.current.style.zIndex = "-1";
-    searchModalRef.current.style.opacity = "0";
-  };
+    setSearchQuery('')
+    searchModalRef.current.style.zIndex = '-1'
+    searchModalRef.current.style.opacity = '0'
+  }
 
   return (
     <div
       ref={searchResultsRef}
       className={
         'search__results scroll-1 ' +
-        (mode === true ? 'lightBg2 darkColor1' : 'darkBg1 lightColor1')
+        (mode === true ? 'lightBg1 darkColor1' : 'darkBg2 lightColor1')
       }
     >
       <div className='search__results__inner'>
         {results.map((result, index) => (
           <Link
-            onClick ={() => hideModal()}
+            onClick={() => hideModal()}
             to={`/${searchOptionState}/${result.id}`}
             key={index}
             className={
               'search__results__inner__card ' +
-              (mode === true ? 'lightBg2' : 'darkBg1')
+              (mode === true ? 'lightBg1' : 'darkBg2')
             }
           >
             <div className='search__results__inner__card__image'>
@@ -80,7 +80,7 @@ const SearchResults = ({ results }) => {
                 src={
                   result.poster_path === null
                     ? APIs.no_image_url
-                    : APIs.img_path + result.poster_path
+                    : APIs.img_path_w185 + result.poster_path
                 }
                 alt='image'
               />
@@ -104,7 +104,9 @@ const SearchResults = ({ results }) => {
               /> */}
             </div>
             <div className='search__results__inner__card__title-date'>
-              <span className={mode === true ? 'darkColor1' : 'lightColor1'}>{result.title ? result.title : result.name}</span>
+              <span className={mode === true ? 'darkColor1' : 'lightColor1'}>
+                {result.title ? result.title : result.name}
+              </span>
               <span>
                 {result.release_date && result.release_date.substring(0, 4)}
 

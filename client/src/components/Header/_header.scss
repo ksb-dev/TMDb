@@ -5,7 +5,7 @@
   right: 0;
   width: 100vw;
 
-  z-index: 5;
+  z-index: 6;
 
   display: flex;
   align-items: center;
@@ -88,8 +88,8 @@
       }
 
       .watchlist:hover {
-        //color: var(--primary);
-        filter: brightness(80%);
+        color: var(--primary);
+        //filter: brightness(80%);
         transition: var(--transition);
       }
 
@@ -146,8 +146,8 @@
       .login-icon:hover,
       .home-icon:hover,
       .mode-icon:hover {
-        //color: var(--primary);
-        filter: brightness(80%);
+        color: var(--primary);
+        //filter: brightness(80%);
         transition: var(--transition);
       }
 
@@ -236,9 +236,9 @@
 }
 
 .activeRoute {
-  background: var(--primary) !important;
-  //background: #000 !important;
-  color: #000 !important;
-  //color: var(--primary) !important;
+  //background: var(--primary) !important;
+  background: #000 !important;
+  //color: #000 !important;
+  color: var(--primary) !important;
   border-radius: 50% !important;
 }

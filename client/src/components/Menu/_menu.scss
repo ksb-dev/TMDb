@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   min-height: 100vh;
-  z-index: 5;
+  z-index: 6;
   top: 0;
   left: 0;
   right: 0;
@@ -11,6 +11,7 @@
   align-items: center;
   flex-direction: column;
   transform: translateY(-120%);
+  transform: translateX(unset);
   transition: var(--transition);
 
   &__inner {
@@ -31,7 +32,7 @@
       margin-bottom: 2rem;
 
       .title {
-        padding: 0.1rem 0.5rem;
+        padding: 0.25rem 0.5rem;
         text-align: center;
         position: relative;
         text-decoration: none;
@@ -151,20 +152,35 @@
 
 @media screen and (max-width: 640px) {
   .menu {
+    align-items: flex-start;
+
+    // transform: translateY(unset);
+    // transform: translateX(-120%);
+
     &__inner {
-      min-height: 100vh;
+      //width: 60%;
+      //min-height: 100vh;
+
+      .title-close {
+        margin-bottom: 1rem;
+      }
+
       .category-title,
       .title-close {
-        padding: 1rem;
+        padding: 1rem 1rem 0 1rem;
+        font-size: 1rem;
       }
 
       .genre-title {
         padding-left: 1rem;
+        margin-bottom: 0;
+        font-size: 1rem;
       }
 
       &__genre {
-        padding: 1rem 1rem 1rem 2rem;
-        height: calc(100vh - 470.4px);
+        margin-bottom: 2rem;
+        padding: 1rem 1rem 1rem 1rem;
+        height: calc(100vh - 420.4px);
         overflow-y: scroll;
 
         &__inner {
@@ -174,27 +190,29 @@
           p,
           a,
           span {
-            font-size: 0.8rem;
-            margin-right: 1rem;
-            padding: 0.5rem 0.5rem;
+            font-size: 0.9rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+            padding: 0.5rem 1rem;
           }
         }
       }
 
       &__category {
-        padding: 0rem 2rem;
+        padding: 0rem 1rem;
 
         &__inner {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(155px, 2fr));
-          grid-template-columns: repeat(2, 1fr);
+          //grid-template-columns: repeat(1, 1fr);
 
           p,
           a,
           span {
-            margin-right: 1rem;
-            font-size: 0.8rem;
-            padding: 0.5rem 0.5rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
           }
         }
       }
@@ -206,7 +224,7 @@
   .menu {
     &__inner {
       &__genre {
-        height: calc(100vh - 470.4px);
+        height: calc(100vh - 420.4px);
       }
     }
   }

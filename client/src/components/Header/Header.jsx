@@ -48,7 +48,7 @@ const Header = () => {
 
   const navigate = useNavigate()
 
-  //let prevScrollpos = window.pageYOffset
+  //console.log(user1, user2)
 
   //Window Scroll Function
   window.onscroll = () => {
@@ -56,29 +56,9 @@ const Header = () => {
   }
 
   const scrollFunction = () => {
-    // To close search results
-    //`setSearchQuery('')
-
     // To close logout component
     if (logoutRef.current !== null) hideLogout(logoutRef)
     setLogoutState(false)
-
-    // var currentScrollpos = window.pageYOffset
-
-    // if (prevScrollpos === 0 || prevScrollpos > currentScrollpos) {
-    //   setTimeout(() => {
-    //     if (headerRef.current !== null) {
-    //       headerRef.current.style.top = '0rem'
-    //     }
-    //   }, 300)
-    // } else {
-    //   setTimeout(() => {
-    //     if (headerRef.current !== null) {
-    //       headerRef.current.style.top = '-100%'
-    //     }
-    //   }, 300)
-    // }
-    // prevScrollpos = currentScrollpos
   }
 
   // Title Click
@@ -116,33 +96,35 @@ const Header = () => {
           </div>
         </div>
 
-        {window.location.pathname === '/login' ||
-        window.location.pathname === '/register' ? (
-          <></>
-        ) : (
-          <div className='header__options__middle'>
-            <Search />
-          </div>
-        )}
+        <div className='header__options__middle'>
+          <Search />
+        </div>
 
         {/* Two */}
         <div className='header__options__two'>
           {window.location.pathname === '/' ? (
             <span
-              onClick={() => navigate('/')}
+              onClick={() => {
+                navigate('/')
+              }}
               className='home-icon activeRoute'
             >
-              {iconsData.home}
+              {iconsData.homeFilled}
             </span>
           ) : (
-            <span onClick={() => navigate('/')} className='home-icon'>
-              {iconsData.home}
+            <span
+              onClick={() => {
+                navigate('/')
+              }}
+              className='home-icon'
+            >
+              {iconsData.homeOutlined}
             </span>
           )}
 
           {window.location.pathname === '/watchlist' ? (
             <Link to='/watchlist' className='watchlist activeRoute'>
-              {iconsData.star2}
+              {iconsData.filledBookmark}
               <p>
                 <span>
                   {optionState === 'movie'
@@ -153,7 +135,7 @@ const Header = () => {
             </Link>
           ) : (
             <Link to='/watchlist' className='watchlist'>
-              {iconsData.star2}
+              {iconsData.outlineBookmark}
               <p>
                 <span>
                   {optionState === 'movie'
@@ -178,11 +160,11 @@ const Header = () => {
             ) : window.location.pathname === '/login' ||
               window.location.pathname === '/register' ? (
               <Link to='/login' className='login-icon activeRoute'>
-                {iconsData.login}
+                {iconsData.loginFilled}
               </Link>
             ) : (
               <Link to='/login' className='login-icon'>
-                {iconsData.login}
+                {iconsData.loginOutlined}
               </Link>
             )}
 

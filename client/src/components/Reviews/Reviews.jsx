@@ -9,6 +9,10 @@ import { useMovieContext } from '../../context/context'
 // components
 import Review from './Review/Review'
 
+// other
+import Loading from '../../other/Loading/Loading'
+import Error from '../../other/Error/Error'
+
 const Reviews = ({ reviews, reviewsLoading, reviewsError }) => {
   const { mode } = useMovieContext()
 
@@ -26,6 +30,25 @@ const Reviews = ({ reviews, reviewsLoading, reviewsError }) => {
         </p>
         <span className='icon'>{iconsData.forwardArrow}</span>
       </div>
+
+      <div className='reviews__loading__error'>
+        {reviewsLoading && (
+          <span className='reviews__loading__error--loading'>
+            <Loading />
+          </span>
+        )}
+        {!reviewsLoading && reviewsError && (
+          <span className='reviews__loading__error--error'>
+            <Error msg={'No reviews found.'} />
+          </span>
+        )}
+        {!reviewsLoading && !reviewsError && reviews && reviews.length === 0 && (
+          <span className='reviews__loading__error--error'>
+            <Error msg={'No reviews found.'} />
+          </span>
+        )}
+      </div>
+
       <div className='reviews__container'>
         {reviews &&
           reviews.length > 0 &&

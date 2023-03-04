@@ -1,6 +1,6 @@
 import React from 'react'
-// import { LazyLoadImage } from 'react-lazy-load-image-component'
-// import 'react-lazy-load-image-component/src/effects/blur.css'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 
 // recat router dom
 import { Link } from 'react-router-dom'
@@ -17,7 +17,7 @@ const Actor = ({ actor }) => {
 
   return (
     <Link
-      to='#'
+      to={`/actor/${id}`}
       className={
         'actor ' +
         (mode === true ? 'lightBg1 darkColor1' : 'darkBg2 lightColor1')
@@ -28,20 +28,21 @@ const Actor = ({ actor }) => {
       >
         <img
           className='img'
-          loading='lazy'
           src={
-            profile_path !== null
-              ? APIs.img_path_original + profile_path
-              : APIs.no_image_url
+            profile_path === null
+              ? APIs.no_image_url
+              : APIs.img_path_w185 + profile_path
           }
-          alt='actor'
+          alt={original_name}
+          load='lazy'
         />
+
         {/* <LazyLoadImage
           width={'100%'}
           height={'100%'}
           className='img'
           alt='image'
-          effect='blur'
+          effect='black-and-white'
           placeholderSrc={
             profile_path === null
               ? APIs.no_image_url

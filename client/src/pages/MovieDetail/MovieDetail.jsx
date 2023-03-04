@@ -5,7 +5,14 @@ import { useParams } from 'react-router-dom'
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { setSavedMovies } from '../../redux/services/movies/setSavedMovies'
+import {
+  setSavedMovies,
+  setMovieUserNull
+} from '../../redux/services/movies/setSavedMovies'
+import {
+  setSavedShows,
+  setTvUserNull
+} from '../../redux/services/shows/setSavedShows'
 
 // Context
 import { useMovieContext } from '../../context/context'
@@ -22,17 +29,31 @@ import SearchModal from '../../components/SearchModal/SearchModal'
 import MovieInfo from '../../components/MovieInfo/MovieInfo'
 import CastBackdropsVideo from '../../components/CastBackdropsVideo/CastBackdropsVideo'
 import Reviews from '../../components/Reviews/Reviews'
-//import YouTubePlayer from '../../Components/MovieDetail/YoutubePlayer/YouTubePlayer'
-//import CastBackdropVideo from '../../Components/CastBackdropVideo/CastBackdropVideo'
-//import Reviews from '../../Components/Reviews/Reviews'
-//import ImageViewer from '../../Components/ImageViewer/ImageViewer'
+import PlayerOne from '../../components/PlayerOne/PlayerOne'
+import ImageViewer from '../../components/ImageViewer/ImageViewer'
 
 const MovieDetail = () => {
-  const { mode, movieState, movieIdState } = useMovieContext()
+  const {
+    mode,
+    movieState,
+    movieIdState,
+    backdrops,
+    setBackdrops,
+    backdropsLoading,
+    setBackdropsLoading,
+    backdropsError,
+    setBackdropsError
+  } = useMovieContext()
   const dispatch = useDispatch()
 
-  const { getTrailer, getInfo, getCast, getBackdrops, getVideos, getReviews } =
-    useGetMovieInfo()
+  const {
+    getMovieTrailer,
+    getMovieInfo,
+    getMovieCast,
+    getMovieBackdrops,
+    getMovieVideos,
+    getMovieReviews
+  } = useGetMovieInfo()
 
   // Movie info
   const { id } = useParams()
@@ -44,11 +65,6 @@ const MovieDetail = () => {
   const [cast, setCast] = useState([])
   const [castLoading, setCastLoading] = useState(true)
   const [castError, setCastError] = useState('')
-
-  // Backdrop
-  const [backdrops, setBackdrops] = useState([])
-  const [backdropsLoading, setBackdropsLoading] = useState(true)
-  const [backdropsError, setBackdropsError] = useState('')
 
   // Videos
   const [videos, setVideos] = useState([])
@@ -62,8 +78,16 @@ const MovieDetail = () => {
 
   // Youtube
   const [trailerUrl, setTrailerUrl] = useState('')
+  const [trailerLoading, setTrailerLoading] = useState(true)
+  const [trailerError, setTrailerError] = useState('')
+
+  const [playerUrl, setPlayerUrl] = useState('')
   const [playerLoading, setPlayerLoading] = useState(true)
   const [playerError, setPlayerError] = useState('')
+  const playerOneRef = useRef(null)
+  const playerOneInnerRef = useRef(null)
+
+  const [type, setType] = useState('movie')
 
   useEffect(() => {
     window.scroll({
@@ -76,11 +100,14 @@ const MovieDetail = () => {
 
     if (savedToken !== '' || savedToken !== undefined || savedToken !== null) {
       dispatch(setSavedMovies())
+      dispatch(setSavedShows())
+    } else {
+      dispatch(setMovieUserNull())
+      dispatch(setTvUserNull())
     }
   }, [dispatch, movieState])
 
   useEffect(() => {
-    //console.log(true)
     window.scroll({
       top: 0,
       left: 0,
@@ -88,29 +115,34 @@ const MovieDetail = () => {
     })
 
     // 1. Get Trailer
-    getTrailer(id, setTrailerUrl, setPlayerLoading, setPlayerError)
+    getMovieTrailer(id, setTrailerUrl, setTrailerLoading, setTrailerError)
 
     // 2. Get info
-    getInfo(id, setData, setLoading, setError)
+    getMovieInfo(id, setData, setLoading, setError)
 
     //3. Get cast
     setTimeout(() => {
-      getCast(id, setCast, setCastLoading, setCastError)
+      getMovieCast(id, setCast, setCastLoading, setCastError)
     }, 250)
 
     //4. Get backdrops
     setTimeout(() => {
-      getBackdrops(id, setBackdrops, setBackdropsLoading, setBackdropsError)
+      getMovieBackdrops(
+        id,
+        setBackdrops,
+        setBackdropsLoading,
+        setBackdropsError
+      )
     }, 500)
 
     //5. Get videos
     setTimeout(() => {
-      getVideos(id, setVideos, setVideosLoading, setVideosError)
+      getMovieVideos(id, setVideos, setVideosLoading, setVideosError)
     }, 750)
 
     //6. Get reviews
     setTimeout(() => {
-      getReviews(id, setReviews, setReviewsLoading, setReviewsError)
+      getMovieReviews(id, setReviews, setReviewsLoading, setReviewsError)
     }, 1000)
   }, [movieIdState])
 
@@ -127,14 +159,26 @@ const MovieDetail = () => {
         loading={loading}
         error={error}
         trailerUrl={trailerUrl}
+        trailerLoading={trailerLoading}
+        trailerError={trailerError}
+        playerRef={playerOneRef}
+        playerInnerRef={playerOneInnerRef}
+        setPlayerUrl={setPlayerUrl}
+        setPlayerLoading={setPlayerLoading}
+        setPlayerError={setPlayerError}
+      />
+
+      <PlayerOne
+        playerRef={playerOneRef}
+        playerInnerRef={playerOneInnerRef}
+        playerUrl={playerUrl}
         playerLoading={playerLoading}
-        playerError={playerError}
+        setPlayerUrl={setPlayerUrl}
       />
 
       {!loading && !error && (
         <>
           <CastBackdropsVideo
-            id={id}
             cast={cast}
             castError={castError}
             castLoading={castLoading}
@@ -147,6 +191,11 @@ const MovieDetail = () => {
             reviews={reviews}
             reviewsError={reviewsError}
             reviewsLoading={reviewsLoading}
+            setPlayerUrl={setPlayerUrl}
+            setPlayerLoading={setPlayerLoading}
+            setPlayerError={setPlayerError}
+            playerRef={playerOneRef}
+            playerInnerRef={playerOneInnerRef}
           />
 
           <Reviews
@@ -154,54 +203,8 @@ const MovieDetail = () => {
             reviewsLoading={reviewsLoading}
             reviewsError={reviewsError}
           />
-        </>
-      )}
 
-      {/* <MovieDetail
-        data={data}
-        loading={loading}
-        error={error}
-        playerRef={playerRef}
-        playerInnerRef={playerInnerRef}
-        id={id}
-        trailerUrl={trailerUrl}
-        setTrailerUrl={setTrailerUrl}
-        setPlayerLoading={setPlayerLoading}
-        setPlayerError={setPlayerError}
-      />
-
-      <YouTubePlayer
-        playerRef={playerRef}
-        playerInnerRef={playerInnerRef}
-        trailerUrl={trailerUrl}
-        setTrailerUrl={setTrailerUrl}
-        playerLoading={playerLoading}
-        playerError={playerError}
-      /> */}
-
-      {!loading && !error && (
-        <>
-          {/* <CastBackdropVideo
-            id={id}
-            cast={cast}
-            castError={castError}
-            castLoading={castLoading}
-            setCast={setCast}
-            setCastLoading={setCastLoading}
-            setCastError={setCastError}
-            reviews={reviews}
-            reviewsError={reviewsError}
-            reviewsLoading={reviewsLoading}
-          />
-
-          <Reviews
-            id={id}
-            reviews={reviews}
-            reviewsError={reviewsError}
-            reviewsLoading={reviewsLoading}
-          />
-
-          <ImageViewer /> */}
+          <ImageViewer />
         </>
       )}
     </div>
