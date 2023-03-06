@@ -10,6 +10,11 @@
     font-size: 1.4rem;
     font-weight: 500;
     margin-bottom: 2rem;
+    border-left: 4px solid var(--primary);
+
+    .title {
+      margin-left: 0.5rem;
+    }
 
     .length {
       margin: 0;
@@ -51,16 +56,27 @@
   }
 
   &__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 2rem;
   }
 }
 
 @media screen and (max-width: 786px) {
   .reviews {
     padding: 0rem 2rem;
+
+    &__container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .reviews {
+    padding: 0rem 1rem;
 
     &__title {
       font-size: 1rem;
@@ -74,11 +90,5 @@
         }
       }
     }
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .reviews {
-    padding: 0rem 1rem;
   }
 }

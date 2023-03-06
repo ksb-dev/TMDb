@@ -10,6 +10,9 @@ import Actor from './Actor/Actor'
 import Loading from '../../../other/Loading/Loading'
 import Error from '../../../other/Error/Error'
 
+// data
+import { iconsData } from '../../../data/icons'
+
 const Cast = ({ cast, castLoading, castError }) => {
   const { mode } = useMovieContext()
 
@@ -41,7 +44,7 @@ const Cast = ({ cast, castLoading, castError }) => {
     <div className={'cast ' + (mode === true ? 'lightBg1' : 'darkBg2')}>
       {cast &&
         cast.map(
-          (actor, index) => index < 8 && <Actor key={index} actor={actor} />
+          (actor, index) => index < 6 && <Actor key={index} actor={actor} />
         )}
     </div>
   )

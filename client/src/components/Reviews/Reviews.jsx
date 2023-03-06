@@ -24,7 +24,7 @@ const Reviews = ({ reviews, reviewsLoading, reviewsError }) => {
       }
     >
       <div className='reviews__title'>
-        Reviews
+        <span className='title'>Reviews</span>
         <p className='length'>
           <span>{reviews && reviews.length}</span>
         </p>
@@ -37,11 +37,13 @@ const Reviews = ({ reviews, reviewsLoading, reviewsError }) => {
             <Loading />
           </span>
         )}
+
         {!reviewsLoading && reviewsError && (
           <span className='reviews__loading__error--error'>
             <Error msg={'No reviews found.'} />
           </span>
         )}
+
         {!reviewsLoading && !reviewsError && reviews && reviews.length === 0 && (
           <span className='reviews__loading__error--error'>
             <Error msg={'No reviews found.'} />
