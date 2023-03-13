@@ -48,8 +48,6 @@ const Header = () => {
 
   const navigate = useNavigate()
 
-  //console.log(user1, user2)
-
   //Window Scroll Function
   window.onscroll = () => {
     scrollFunction()
@@ -81,7 +79,7 @@ const Header = () => {
       <div className='header__options'>
         {/* One */}
         <div className='header__options__one'>
-          <span
+          <p
             //to='#'
             className='title '
             onClick={() => {
@@ -89,7 +87,7 @@ const Header = () => {
             }}
           >
             TMDb
-          </span>
+          </p>
 
           <div className='header-menu-icon'>
             <MenuIcon menuIconRef={menuIconRef} />
@@ -125,24 +123,10 @@ const Header = () => {
           {window.location.pathname === '/watchlist' ? (
             <Link to='/watchlist' className='watchlist activeRoute'>
               {iconsData.filledBookmark}
-              <p>
-                <span>
-                  {optionState === 'movie'
-                    ? savedMovies && savedMovies.length
-                    : savedShows && savedShows.length}
-                </span>
-              </p>
             </Link>
           ) : (
             <Link to='/watchlist' className='watchlist'>
               {iconsData.outlineBookmark}
-              <p>
-                <span>
-                  {optionState === 'movie'
-                    ? savedMovies && savedMovies.length
-                    : savedShows && savedShows.length}
-                </span>
-              </p>
             </Link>
           )}
 

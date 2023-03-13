@@ -10,17 +10,16 @@ import Video from '../Videos/Video/Video'
 import Loading from '../../../other/Loading/Loading'
 import Error from '../../../other/Error/Error'
 
-const Videos = ({
-  videos,
-  videosLoading,
-  videosError,
-  setPlayerUrl,
-  setPlayerLoading,
-  setPlayerError,
-  playerRef,
-  playerInnerRef
-}) => {
-  const { mode } = useMovieContext()
+const Videos = ({ playerRef, playerInnerRef }) => {
+  const {
+    mode,
+    videos,
+    videosLoading,
+    videosError,
+    setPlayerUrl,
+    setPlayerLoading,
+    setPlayerError
+  } = useMovieContext()
 
   if (videosLoading) {
     return (
@@ -47,7 +46,9 @@ const Videos = ({
   }
 
   return (
-    <div className={'videos ' + (mode === true ? 'lightBg1' : 'darkBg2')}>
+    <div
+      className={'videos scroll-2 ' + (mode === true ? 'lightBg1' : 'darkBg2')}
+    >
       {videos &&
         videos.map(
           (video, index) =>

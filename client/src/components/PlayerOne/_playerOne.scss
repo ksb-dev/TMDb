@@ -7,17 +7,17 @@
   top: 0;
   left: 0;
 
-  opacity: 0;
-  z-index: -1;
-  transition: z-index 0s ease, opacity 0s ease;
+  transform: scaleY(0);
+  z-index: 10;
+  transition: var(--transition);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   &__inner {
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    transform: scaleY(0);
+    transition: var(--transition);
     border-radius: var(--border-radius-1);
 
     display: flex;
@@ -33,7 +33,6 @@
     h1 {
       font-size: 1.2rem;
       font-weight: 400;
-      color: tomato;
       margin: 0;
       padding: 0.5rem 1rem;
       border-radius: var(--border-radius-1);
@@ -47,6 +46,7 @@
       border-radius: unset;
       width: 100%;
       height: 70%;
+      border-radius: 0px;
     }
   }
 }
@@ -55,7 +55,7 @@
   .player {
     &__inner {
       height: 50%;
-      border-radius: 0;
+      border-radius: 0px;
 
       h1 {
         font-size: 1rem;

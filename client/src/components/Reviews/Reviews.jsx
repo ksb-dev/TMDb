@@ -1,20 +1,37 @@
-import React from 'react'
-
-// data
-import { iconsData } from '../../data/icons'
+import React, { useEffect } from 'react'
 
 // context
 import { useMovieContext } from '../../context/context'
 
 // components
-import Review from './Review/Review'
+import ReviewCard from '../ReviewCard/ReviewCard'
 
 // other
 import Loading from '../../other/Loading/Loading'
 import Error from '../../other/Error/Error'
 
-const Reviews = ({ reviews, reviewsLoading, reviewsError }) => {
-  const { mode } = useMovieContext()
+// hooks
+import { useGetMovieInfo } from '../../hooks/useGetMovieInfo'
+import { useGetTvInfo } from '../../hooks/useGetTvInfo'
+
+const Reviews = ({ type, id }) => {
+  const {
+    mode,
+    reviews,
+    setReviews,
+    reviewsLoading,
+    setReviewsLoading,
+    reviewsError,
+    setReviewsError
+  } = useMovieContext()
+  const { getMovieReviews } = useGetMovieInfo()
+  const { getTvReviews } = useGetTvInfo()
+
+  useEffect(() => {
+    type === 'movie'
+      ? getMovieReviews(id, setReviews, setReviewsLoading, setReviewsError)
+      : getTvReviews(id, setReviews, setReviewsLoading, setReviewsError)
+  }, [id])
 
   return (
     <div
@@ -28,7 +45,7 @@ const Reviews = ({ reviews, reviewsLoading, reviewsError }) => {
         <p className='length'>
           <span>{reviews && reviews.length}</span>
         </p>
-        <span className='icon'>{iconsData.forwardArrow}</span>
+        {/* <span className='icon'>{iconsData.forwardArrow}</span> */}
       </div>
 
       <div className='reviews__loading__error'>
@@ -54,10 +71,9 @@ const Reviews = ({ reviews, reviewsLoading, reviewsError }) => {
       <div className='reviews__container'>
         {reviews &&
           reviews.length > 0 &&
-          reviews.map(
-            (review, index) =>
-              index < 4 && <Review key={index} review={review} />
-          )}
+          reviews.map((review, index) => (
+            <ReviewCard key={index} review={review} />
+          ))}
       </div>
     </div>
   )

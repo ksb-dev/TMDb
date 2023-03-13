@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   min-height: 100vh;
-  z-index: 6;
+  z-index: 5;
   top: 0;
   left: 0;
   right: 0;
@@ -14,15 +14,18 @@
   transform: translateX(unset);
   transition: var(--transition);
 
+  padding-top: 58.6px;
+
   &__inner {
     display: flex;
     flex-direction: column;
     max-width: 1280px;
     width: 100%;
-    margin-left: 8px;
     box-shadow: 0px 15px 10px -15px #111;
     border-bottom-left-radius: var(--border-radius-1);
     border-bottom-right-radius: var(--border-radius-1);
+    transform: scaleY(0);
+    transition: var(--transition);
 
     .title-close {
       padding: 1rem 2rem;
@@ -30,6 +33,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 2rem;
+      display: none;
 
       .title {
         padding: 0.25rem 0.5rem;
@@ -68,12 +72,17 @@
       }
     }
 
+    .category-title {
+      margin-top: 2rem;
+    }
+
     .category-title,
     .genre-title {
-      font-size: 1.2rem;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 700;
       padding-left: 2rem;
       margin-bottom: 1rem;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     &__genre,
@@ -100,7 +109,9 @@
           cursor: pointer;
           display: flex;
           text-transform: capitalize;
-          border-radius: var(--border-radius-1);
+          border-radius: 50px;
+          display: flex;
+          align-items: center;
         }
 
         p,
@@ -114,7 +125,6 @@
             background: #000;
             color: #fff;
             width: 25px;
-            text-align: center;
             margin: 0 0.5rem 0 0;
             text-transform: capitalize;
           }
@@ -165,6 +175,10 @@
         font-size: 1rem;
       }
 
+      .category-title {
+        padding-top: 0;
+      }
+
       .genre-title {
         padding-left: 1rem;
         margin-bottom: 0;
@@ -172,7 +186,7 @@
       }
 
       &__genre {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         padding: 1rem 1rem 1rem 1rem;
         height: calc(100vh - 420.4px);
         overflow-y: scroll;

@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-
 // Context
 import { useMovieContext } from '../../../context/context'
 
@@ -10,8 +8,9 @@ import Backdrop from './Backdrop/Backdrop'
 import Loading from '../../../other/Loading/Loading'
 import Error from '../../../other/Error/Error'
 
-const Backdrops = ({ backdrops, backdropsLoading, backdropsError }) => {
-  const { mode } = useMovieContext()
+const Backdrops = () => {
+  const { mode, backdrops, backdropsLoading, backdropsError } =
+    useMovieContext()
 
   if (backdropsLoading) {
     return (
@@ -38,7 +37,11 @@ const Backdrops = ({ backdrops, backdropsLoading, backdropsError }) => {
   }
 
   return (
-    <div className={'backdrops ' + (mode === true ? 'lightBg1' : 'darkBg2')}>
+    <div
+      className={
+        'backdrops scroll-2 ' + (mode === true ? 'lightBg1' : 'darkBg2')
+      }
+    >
       {backdrops &&
         backdrops.map(
           (backdrop, index) =>

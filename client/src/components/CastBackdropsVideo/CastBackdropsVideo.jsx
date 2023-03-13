@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // react router dom
 import { Link } from 'react-router-dom'
@@ -14,27 +14,50 @@ import Cast from './Cast/Cast'
 import Backdrops from './Backdrops/Backdrops'
 import Videos from './Videos/Videos'
 
-const CastBackdropsVideo = ({
-  id,
-  type,
-  cast,
-  castLoading,
-  castError,
-  backdrops,
-  backdropsLoading,
-  backdropsError,
-  videos,
-  videosLoading,
-  videosError,
-  setPlayerUrl,
-  setPlayerLoading,
-  setPlayerError,
-  playerRef,
-  playerInnerRef
-}) => {
-  const { mode } = useMovieContext()
+// hooks
+import { useGetMovieInfo } from '../../hooks/useGetMovieInfo'
+import { useGetTvInfo } from '../../hooks/useGetTvInfo'
 
-  let path = type === 'movie' ? `/movie/cast/${id}` : `/tv/cast/${id}`
+const CastBackdropsVideo = ({ id, type, playerRef, playerInnerRef }) => {
+  const {
+    mode,
+    cast,
+    setCast,
+    setCastLoading,
+    setCastError,
+    backdrops,
+    setBackdrops,
+    setBackdropsLoading,
+    setBackdropsError,
+    videos,
+    setVideos,
+    setVideosLoading,
+    setVideosError
+  } = useMovieContext()
+  const { getMovieCast, getMovieBackdrops, getMovieVideos } = useGetMovieInfo()
+  const { getTvCast, getTvBackdrops, getTvVideos } = useGetTvInfo()
+
+  let castPath = type === 'movie' ? `/movie/cast/${id}` : `/tv/cast/${id}`
+  let backdropPath =
+    type === 'movie' ? `/movie/backdrops/${id}` : `/tv/backdrops/${id}`
+  let videoPath = type === 'movie' ? `/movie/videos/${id}` : `/tv/videos/${id}`
+
+  useEffect(() => {
+    if (type === 'movie') {
+      getMovieCast(id, setCast, setCastLoading, setCastError)
+      getMovieBackdrops(
+        id,
+        setBackdrops,
+        setBackdropsLoading,
+        setBackdropsError
+      )
+      getMovieVideos(id, setVideos, setVideosLoading, setVideosError)
+    } else {
+      getTvCast(id, setCast, setCastLoading, setCastError)
+      getTvBackdrops(id, setBackdrops, setBackdropsLoading, setBackdropsError)
+      getTvVideos(id, setVideos, setVideosLoading, setVideosError)
+    }
+  }, [id])
 
   return (
     <div
@@ -44,55 +67,97 @@ const CastBackdropsVideo = ({
       }
     >
       <div className='castBackdropVideo__cast'>
-        <Link
-          to={path}
-          className={
-            'castBackdropVideo__cast__title ' +
-            (mode === true ? 'darkColor1' : 'lightColor1')
-          }
-        >
-          Top Cast
-          <p className='length'>
-            <span>{cast && cast.length}</span>
-          </p>
-          <span className='icon'>{iconsData.forwardArrow}</span>
-        </Link>
-        <Cast cast={cast} castLoading={castLoading} castError={castError} />
+        {cast && cast.length > 6 ? (
+          <Link
+            to={castPath}
+            className={
+              'castBackdropVideo__cast__title-1 ' +
+              (mode === true ? 'darkColor1' : 'lightColor1')
+            }
+          >
+            Top Cast
+            <p className='length'>
+              <span>{cast && cast.length}</span>
+            </p>
+            <span className='icon'>{iconsData.forwardArrow}</span>
+          </Link>
+        ) : (
+          <div
+            className={
+              'castBackdropVideo__cast__title-2 ' +
+              (mode === true ? 'darkColor1' : 'lightColor1')
+            }
+          >
+            Top Cast
+            <p className='length'>
+              <span>{cast && cast.length}</span>
+            </p>
+          </div>
+        )}
+        <Cast />
       </div>
 
       <div className='castBackdropVideo__backdrops'>
-        <div className='castBackdropVideo__backdrops__title'>
-          Backdrops
-          <p className='length'>
-            <span>{backdrops && backdrops.length}</span>
-          </p>
-          <span className='icon'>{iconsData.forwardArrow}</span>
-        </div>
-        <Backdrops
-          backdrops={backdrops}
-          backdropsLoading={backdropsLoading}
-          backdropsError={backdropsError}
-        />
+        {backdrops && backdrops.length > 4 ? (
+          <Link
+            to={backdropPath}
+            className={
+              'castBackdropVideo__backdrops__title-1 ' +
+              (mode === true ? 'darkColor1' : 'lightColor1')
+            }
+          >
+            Backdrops
+            <p className='length'>
+              <span>{backdrops && backdrops.length}</span>
+            </p>
+            <span className='icon'>{iconsData.forwardArrow}</span>
+          </Link>
+        ) : (
+          <div
+            className={
+              'castBackdropVideo__backdrops__title-2 ' +
+              (mode === true ? 'darkColor1' : 'lightColor1')
+            }
+          >
+            Backdrops
+            <p className='length'>
+              <span>{backdrops && backdrops.length}</span>
+            </p>
+          </div>
+        )}
+        <Backdrops />
       </div>
 
       <div className='castBackdropVideo__videos'>
-        <div className='castBackdropVideo__videos__title'>
-          Videos
-          <p className='length'>
-            <span>{videos && videos.length}</span>
-          </p>
-          <span className='icon'>{iconsData.forwardArrow}</span>
-        </div>
-        <Videos
-          videos={videos}
-          videosLoading={videosLoading}
-          videosError={videosError}
-          setPlayerUrl={setPlayerUrl}
-          setPlayerLoading={setPlayerLoading}
-          setPlayerError={setPlayerError}
-          playerRef={playerRef}
-          playerInnerRef={playerInnerRef}
-        />
+        {videos && videos.length > 4 ? (
+          <Link
+            to={videoPath}
+            className={
+              'castBackdropVideo__videos__title-1 ' +
+              (mode === true ? 'darkColor1' : 'lightColor1')
+            }
+          >
+            Videos
+            <p className='length'>
+              <span>{videos && videos.length}</span>
+            </p>
+            <span className='icon'>{iconsData.forwardArrow}</span>
+          </Link>
+        ) : (
+          <div
+            className={
+              'castBackdropVideo__videos__title-2 ' +
+              (mode === true ? 'darkColor1' : 'lightColor1')
+            }
+          >
+            Videos
+            <p className='length'>
+              <span>{videos && videos.length}</span>
+            </p>
+          </div>
+        )}
+
+        <Videos playerRef={playerRef} playerInnerRef={playerInnerRef} />
       </div>
     </div>
   )

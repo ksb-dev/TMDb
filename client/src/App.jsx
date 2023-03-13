@@ -18,6 +18,10 @@ import TvDetail from './pages/TvDetail/TvDetail'
 import ActorDetail from './pages/ActorDetail/ActorDetail'
 import MovieCast from './pages/MovieCast/MovieCast'
 import TvCast from './pages/TvCast/TvCast'
+import MovieBackdrops from './pages/MovieBackdrops/MovieBackdrops'
+import TvBackdrops from './pages/TvBackdrops/TvBackdrops'
+import MovieVideos from './pages/MovieVideos/MovieVideos'
+import TvVideos from './pages/TvVideos/TvVideos'
 
 const App = () => {
   const { mode } = useMovieContext()
@@ -36,6 +40,10 @@ const App = () => {
           <Route path='/actor/:id' element={<ActorDetail />} />
           <Route path='/movie/cast/:id' element={<MovieCast />} />
           <Route path='/tv/cast/:id' element={<TvCast />} />
+          <Route path='/movie/backdrops/:id' element={<MovieBackdrops />} />
+          <Route path='/tv/backdrops/:id' element={<TvBackdrops />} />
+          <Route path='/movie/videos/:id' element={<MovieVideos />} />
+          <Route path='/tv/videos/:id' element={<TvVideos />} />
         </Routes>
       </BrowserRouter>
     </div>

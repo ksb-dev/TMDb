@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 // redux
 import { useDispatch } from 'react-redux'
@@ -22,14 +22,17 @@ import { useMovieContext } from '../../context/context'
 import Header from '../../components/Header/Header'
 import SmallHeader from '../../components/Header/SmallHeader/SmallHeader'
 import Menu from '../../components/Menu/Menu'
-import MovieList from '../../components/MovieList/MovieList'
-import TvList from '../../components/TvList/TvList'
+import List from '../../components/List/List'
 import SearchModal from '../../components/SearchModal/SearchModal'
+import PlayerOne from '../../components/PlayerOne/PlayerOne'
 
 const Home = () => {
-  const { mode, movieState, activeOption, setSearchQuery, setOptionState } =
-    useMovieContext()
+  const { mode, movieState, activeOption, setSearchQuery } = useMovieContext()
+  //const [type, setType] = useState('')
   const dispatch = useDispatch()
+
+  const playerMainRef = useRef(null)
+  const playerMainInnerRef = useRef(null)
 
   useEffect(() => {
     window.scroll({
@@ -115,10 +118,23 @@ const Home = () => {
 
       {sessionStorage.getItem('movieState') === 'movie' ||
       sessionStorage.getItem('movieState') === null ? (
-        <MovieList />
+        <List
+          type={'movie'}
+          playerRef={playerMainRef}
+          playerInnerRef={playerMainInnerRef}
+        />
       ) : (
-        <TvList />
+        <List
+          type={'tv'}
+          playerRef={playerMainRef}
+          playerInnerRef={playerMainInnerRef}
+        />
       )}
+
+      <PlayerOne
+        playerRef={playerMainRef}
+        playerInnerRef={playerMainInnerRef}
+      />
     </div>
   )
 }

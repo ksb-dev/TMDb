@@ -10,14 +10,9 @@ import { useShowHide } from '../../hooks/useShowHide'
 import Loading from '../../other/Loading/Loading'
 import Iframe from '../../other/Iframe/Iframe'
 
-const PlayerOne = ({
-  playerRef,
-  playerInnerRef,
-  playerUrl,
-  playerLoading,
-  setPlayerUrl
-}) => {
-  const { mode } = useMovieContext()
+const PlayerOne = ({ playerRef, playerInnerRef }) => {
+  const { mode, playerUrl, playerError, playerLoading, setPlayerUrl } =
+    useMovieContext()
   const { hidePlayer } = useShowHide()
 
   useEffect(() => {}, [playerUrl])
@@ -43,7 +38,10 @@ const PlayerOne = ({
   return (
     <div
       ref={playerRef}
-      className={'player ' + (mode === true ? 'lightAlpha5' : 'darkAlpha6')}
+      className={
+        'player ' +
+        (mode === true ? 'lightAlpha5 darkColor1' : 'darkAlpha5 lightColor1')
+      }
     >
       <div
         ref={playerInnerRef}
@@ -57,7 +55,7 @@ const PlayerOne = ({
 
         {!playerLoading && playerUrl && <Iframe embedId={playerUrl} />}
 
-        {!playerLoading && !playerUrl && <h1>Trailer not found.</h1>}
+        {!playerLoading && playerError && <h1>Trailer not found.</h1>}
       </div>
     </div>
   )

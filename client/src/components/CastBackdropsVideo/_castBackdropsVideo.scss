@@ -1,10 +1,11 @@
 .castBackdropVideo {
-  padding: 0.5rem 2.5% 2rem 2.5%;
+  padding: 0.5rem 2.5% 0rem 2.5%;
 
   &__cast,
   &__backdrops,
   &__videos {
-    &__title {
+    &__title-1,
+    &__title-2 {
       text-decoration: none;
       border-left: 5px solid var(--primary);
       padding-left: 0.5rem;
@@ -13,19 +14,22 @@
       margin: 0;
       display: flex;
       align-items: center;
-      font-size: 1.4rem;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--font-family-2);
 
       .length {
         margin: 0;
         position: relative;
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         background: var(--primary);
         border-radius: 50%;
         margin-left: 0.5rem;
+        font-weight: 500;
 
         span {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -36,8 +40,11 @@
       }
     }
 
-    &__title:hover .icon {
-      //color: var(--primary);
+    &__title-2 {
+      cursor: unset;
+    }
+
+    &__title-1:hover .icon {
       transform: translateX(40%) scale(1.25);
       transition: var(--transition);
     }
@@ -46,30 +53,13 @@
 
 @media screen and (max-width: 786px) {
   .castBackdropVideo {
-    padding: 0 2rem 2rem 2rem;
+    padding: 0 2rem 0rem 2rem;
   }
 }
 
 @media screen and (max-width: 640px) {
   .castBackdropVideo {
-    padding: 0 0rem 2rem 1rem;
-
-    &__cast,
-    &__backdrops,
-    &__videos {
-      &__title {
-        font-size: 1rem;
-
-        .length {
-          height: 30px;
-          width: 30px;
-
-          span {
-            font-size: 0.75rem;
-          }
-        }
-      }
-    }
+    padding: 0 0 0 1rem;
   }
 }
 

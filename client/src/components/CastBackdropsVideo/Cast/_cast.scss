@@ -31,6 +31,7 @@
   .cast {
     gap: 1rem;
     display: flex;
+    align-items: flex-start;
     overflow-x: auto;
     margin-bottom: 2rem;
   }
@@ -40,25 +41,4 @@
   .cast {
     gap: 0rem;
   }
-}
-
-.scroll {
-  overflow-x: scroll;
-}
-/* width */
-.scroll::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-/* Track */
-.scroll::-webkit-scrollbar-track {
-  background: rgb(180, 180, 180);
-  background: transparent;
-}
-
-/* Handle */
-.scroll::-webkit-scrollbar-thumb {
-  //background-color: #999;
-  //border-radius: 20px;
 }

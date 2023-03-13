@@ -14,8 +14,7 @@ import { useMovieContext } from '../../context/context'
 import Header from '../../components/Header/Header'
 import SmallHeader from '../../components/Header/SmallHeader/SmallHeader'
 import Menu from '../../components/Menu/Menu'
-import MovieList from '../../components/MovieList/MovieList'
-import TvList from '../../components/TvList/TvList'
+import List from '../../components/List/List'
 import SearchModal from '../../components/SearchModal/SearchModal'
 
 const Search = () => {
@@ -34,12 +33,10 @@ const Search = () => {
 
     if (searchQuery && savedMovieState === 'movie') {
       dispatch(getMovies('search'))
-      //console.log(1)
     }
 
     if (searchQuery && savedMovieState === 'tv') {
       dispatch(getTvShows('search'))
-      //console.log(2)
     }
 
     const savedToken = sessionStorage.getItem('token')
@@ -66,9 +63,9 @@ const Search = () => {
 
       {sessionStorage.getItem('movieState') === 'movie' ||
       sessionStorage.getItem('movieState') === null ? (
-        <MovieList />
+        <List type='movie' />
       ) : (
-        <TvList />
+        <List type='tv' />
       )}
     </div>
   )

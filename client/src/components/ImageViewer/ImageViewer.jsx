@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
-import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 
 // APIs
 import { APIs } from '../../APIs/APIs'
@@ -59,9 +57,12 @@ const ImageViewer = () => {
   return (
     <div
       ref={viewerRef}
-      className={'viewer ' + (mode === true ? 'lightAlpha5' : 'darkAlpha6')}
+      className={'viewer ' + (mode === true ? 'lightAlpha5' : 'darkAlpha5')}
     >
-      <div ref={innerViewerRef} className='viewer__inner'>
+      <div
+        ref={innerViewerRef}
+        className={'viewer__inner ' + (mode === true ? 'lightBg1' : 'darkBg2')}
+      >
         {backdrops && backdrops.length > 0 && (
           <span className='viewer__inner--length'>
             {backdropIndex + 1} / {backdrops.length}
@@ -88,6 +89,7 @@ const ImageViewer = () => {
                   : APIs.no_image_url
               }
               alt='image'
+              loading='lazy'
             />
 
             <img
@@ -100,24 +102,6 @@ const ImageViewer = () => {
               alt='image'
             />
           </>
-
-          // <LazyLoadImage
-          //   width={'100%'}
-          //   height={'100%'}
-          //   className='img'
-          //   alt='image'
-          //   effect='black-and-white'
-          //   placeholderSrc={
-          //     backdrops[backdropIndex].file_path.file_path === null
-          //       ? APIs.no_image_url
-          //       : APIs.img_path_original + backdrops[backdropIndex].file_path
-          //   }
-          //   src={
-          //     backdrops[backdropIndex].file_path === null
-          //       ? APIs.no_image_url
-          //       : APIs.img_path_original + backdrops[backdropIndex].file_path
-          //   }
-          // />
         )}
 
         {backdrops && backdrops.length > 1 ? (

@@ -1,8 +1,8 @@
 #root {
   --primary: #f5c518;
-  // --primary: #1db954;
-  // --primary: #1da1f2;
-  // --primary: #e50914;
+  //--primary: #1db954;
+  //--primary: #1da1f2;
+  //--primary: #e50914;
   //--primary: goldenrod;
   --secondary: #e50914;
 
@@ -45,7 +45,7 @@
   --darkAplha-5: rgba(51, 51, 51, 0.9);
   --darkAplha-6: rgba(34, 34, 34, 0.9);
 
-  --border-radius-1: 3px;
+  --border-radius-1: 7.5px;
   --border-radius-2: 10px;
   --border-radius-2: 15px;
 
@@ -62,6 +62,16 @@
   --font-weight-5: 900;
 
   --transition: all 0.3s ease;
+
+  --box-shadow-1: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+  --box-shadow-1: 0 0 1px rgba(0, 0, 0, 1);
+  --box-shadow-2: 0 0 5px rgba(0, 0, 0, 0.5);
+
+  --font-family-1: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-2: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .primaryBg {
@@ -155,8 +165,23 @@
   background: var(--darkAplha-6);
 }
 
+.lightGradient {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0.8)
+  );
+}
+
+.darkGradient {
+  background: linear-gradient(
+    to right,
+    rgb(51, 51, 51, 1) 20%,
+    rgb(51, 51, 51, 0.8)
+  );
+}
+
 .lightGradient1 {
-  //box-shadow: 0px 15px 10px -15px #111;
   background: linear-gradient(
     to right top,
     rgba(255, 255, 255, 1) 20%,
@@ -164,28 +189,27 @@
   );
 }
 
-.darkGradient {
-  background: linear-gradient(
-    to right top,
-    rgba(34, 34, 34, 1) 20%,
-    rgba(34, 34, 34, 0)
-  );
-}
-
-.lightGradient {
-  background: linear-gradient(
-    to right top,
-    rgba(220, 220, 220, 1) 20%,
-    rgba(255, 255, 255, 0)
-  );
-}
-
 .darkGradient1 {
-  //box-shadow: 0px 15px 10px -15px #111;
   background: linear-gradient(
     to right top,
     rgb(51, 51, 51, 1) 20%,
     rgba(34, 34, 34, 0)
+  );
+}
+
+.lightGradient2 {
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.darkGradient2 {
+  background: linear-gradient(
+    to top,
+    rgb(51, 51, 51, 1),
+    rgba(34, 34, 34, 0.5)
   );
 }
 
@@ -309,24 +333,19 @@ body {
 @import '../components/Header/header';
 @import '../components/Header/SmallHeader/smallHeader';
 @import '../components/Header/Logout/logout';
-
-@import '../components/MovieList/movieList';
-@import '../components/MovieList/MovieCard/movieCard';
-@import '../components/MovieList/Pagination/pagination';
-@import '../components/MovieList/Sort/sort';
-
-@import '../components/TvList/tvList';
-@import '../components/TvList/TvCard/tvCard';
-@import '../components/TvList/Pagination/pagination';
+@import '../components/Sort/sort';
+@import '../components/Pagination/pagination';
+@import '../components/List/list';
+@import '../components/Card/card';
 
 @import '../components/Menu/menu';
+
+@import '../components/ImageDetail/imageDetail';
 
 @import '../components/Search/search';
 @import '../components/SearchResults/searchResults';
 @import '../components/SearchModal/searchModal';
 
-@import '../components/MovieInfo/movieInfo';
-@import '../components/TvInfo/tvInfo';
 @import '../components/CastBackdropsVideo/castBackdropsVideo';
 @import '../components/CastBackdropsVideo/Cast/cast';
 @import '../components/CastBackdropsVideo/Cast/Actor/actor';
@@ -336,13 +355,21 @@ body {
 @import '../components/CastBackdropsVideo/Videos/Video/video';
 
 @import '../components/Reviews/reviews';
-@import '../components/Reviews/Review/review';
 
 @import '../components/ImageViewer/imageViewer';
 
 @import '../components/PlayerOne/playerOne';
 
 @import '../components/ActorCard/actorCard';
+@import '../components/BackdropCard/backdropCard';
+@import '../components/VideoCard/videoCard';
+@import '../components/ReviewCard/reviewCard';
+
+@import '../components/FullCast/fullCast';
+@import '../components/AllBackdrops/allBackdrops';
+@import '../components/AllVideos/allVideos';
+
+@import '../components/ReviewModal/reviewModal';
 
 // pages
 @import '../pages/Home/home';
@@ -355,6 +382,10 @@ body {
 @import '../pages/ActorDetail/actorDetail';
 @import '../Pages/MovieCast/movieCast';
 @import '../Pages/TvCast/tvCast';
+@import '../pages/MovieBackdrops/movieBackdrops';
+@import '../pages/TvBackdrops/tvBackdrops';
+@import '../pages/MovieVideos/movieVideos';
+@import '../pages/TvVideos/tvVideos';
 
 // other
 @import '../other/Loading/loading';
@@ -379,4 +410,46 @@ body::-webkit-scrollbar-thumb {
   background-color: #999; /* color of the scroll thumb */
   //border-radius: 20px; /* roundness of the scroll thumb */
   //border: 3px solid #fff; /* creates padding around scroll thumb */
+}
+
+.scroll-1 {
+  overflow-y: auto;
+}
+/* width */
+.scroll-1::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+.scroll-1::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.scroll-1::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 3px;
+}
+
+// ----------------------------------------
+
+.scroll-2 {
+  overflow-x: auto;
+}
+/* width */
+.scroll-2::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+.scroll-2::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.scroll-2::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 3px;
 }
